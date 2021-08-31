@@ -4,7 +4,7 @@ author: "Logan Morrill"
 date: "8/31/2021"
 output: 
   html_document:
-    theme: cerulean
+    theme: united
     keep_md: True
 ---
 
