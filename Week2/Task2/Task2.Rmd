@@ -8,7 +8,74 @@ output:
     keep_md: True
 ---
 
-```{r}
+### Packages
+```{r Packages}
 library(knitr)
+```
+### Computations
+```{r Computation}
+sin(pi/4)
+
+x <- 10/3
+```
+my_list <- list("Bob", "Sarah","Tom")
+
+my_list <- list(Bob,Sarah,Tom)
+Theses are not allowed because they are not in the string format.
+
+```{r}
+Mysequence <- seq(1,50,7)
+Mysequence
+```
+
+
+```{r}
+my_vector <- c(1, 5, 12, 31, 19)
+my_vector
+```
+
+
+```{r}
+7 + 5 == 12
+```
+== means that the left side is exactly the same as the right
+
+```{r}
+(7 + 4 = 12) | (5 - 4 = 1)
+
+```
+An error occurs because 7+4 = 11 and not 12.
+
+### Exercises
+##### Exercise 1
+```{r Exercise 1}
+#The code does not work because the variable in the assignment operator is different than the print variable.
+```
+
+##### Exercise 2
+```{r Exercise 2}
+library(tidyverse)
+
+ggplot(dota = mpg) + 
+geom_point(mapping = aes(x = displ, y = hwy))
+
+fliter(mpg, cyl = 8)
+filter(diamond, carat > 3)
+```
+Dota should be data, fliter should be filter.
+
+```{r Exercise 2 correct}
+library(tidyverse)
+
+ggplot(data = mpg) + 
+geom_point(mapping = aes(x = displ, y = hwy))
+
+filter(mpg, cyl == 8)
+filter(diamonds, carat > 3)
+```
+
+```{r Exercise 3}
+#The Keyboard Shortcut Quick Reference pop us.
+#This can also be accessed by going to Tools > Keyboard Shortcuts Help
 ```
 
