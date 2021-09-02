@@ -5,7 +5,7 @@ str(iris)
 ?iris
 
 head(iris)
-summary(iris)
+str(iris)
 
 ggplot(data = iris) +
   geom_point(mapping = aes(x = Sepal.Length, y = Sepal.Width, color = Species))
@@ -21,5 +21,5 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
   geom_smooth()
 
 ggplot(data = iris, aes(x = Sepal.Length, fill = Species)) +
-  geom_bar() +
+  geom_bar(color = 'black', stat = 'bin', bins = 19) +
   geom_vline(xintercept = mean(iris[["Sepal.Length"]]), linetype = "dotted")
