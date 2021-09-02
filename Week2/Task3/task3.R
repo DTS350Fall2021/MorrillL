@@ -15,3 +15,7 @@ ggplot(data = iris) +
                            color = Species, shape = Species)) +
   facet_wrap(~Species) +
   theme(legend.position = 'none')
+
+ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
+  geom_point( aes(color = Species, shape = Species)) +
+  geom_smooth()
