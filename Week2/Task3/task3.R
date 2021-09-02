@@ -19,3 +19,7 @@ ggplot(data = iris) +
 ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
   geom_point( aes(color = Species, shape = Species)) +
   geom_smooth()
+
+ggplot(data = iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_bar() +
+  geom_vline(xintercept = mean(iris[["Sepal.Length"]]), linetype = "dotted")
