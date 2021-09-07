@@ -107,4 +107,4 @@ ggplot(mydata, aes(x = Year, y = Value)) +
   scale_y_continuous(breaks = seq(0, 55, 5)) +
   description +
   theme_classic()
-#The trend line confirms that coral bleaching increasing slowly but gradually.
+#The trend line confirms that coral bleaching is increasing slowly but gradually.
