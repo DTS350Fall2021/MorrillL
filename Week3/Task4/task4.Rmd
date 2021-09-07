@@ -1,0 +1,74 @@
+---
+title: "Task 4"
+author: "Logan Morrill"
+date: "9/7/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+---
+#### Load Packages
+```{r Packages}
+library(dplyr)
+#pipe %>% = 'then'
+#%in% c(10,12)
+#!is.na
+```
+
+```{r Load iris data}
+iris_data <- tibble(iris)
+str(iris_data)
+tail(iris_data)
+```
+
+```{r Arrange iris data}
+head(arrange(iris_data, Sepal.Length), n = 10)
+```
+
+```{r Select operator}
+testdat <- select(iris_data, Species, Petal.Width)
+head(testdat)
+```
+
+```{r Species Means}
+species_mean <- 
+  iris_data %>%
+  group_by(Species) %>%
+  summarise(
+    Sepal_Width_Mean = mean(Sepal.Width), Sepal_Length_Mean = mean(Sepal.Length),Petal_Width_Mean = 
+    mean(Petal.Width), Petal_Length_Mean = mean(Petal.Length))
+
+species_mean
+
+```
+
+```{ Iris min}
+iris_min <- filter(iris_data, Sepal.Width <= 3, Petal.Width != 2.5)
+head(iris_min)
+```
+
+```{r Iris size}
+iris_size <- iris_data %>%
+  mutate(Sepal.Size =
+          case_when(
+            Sepal.Length < 5 ~ "small", 
+            Sepal.Length >= 5 & Sepal.Length < 6.5 ~ "medium",
+            Sepal.Length >= 6.5 ~ "large"))
+iris_size
+```
+
+```{r Iris rank}
+iris_rank <- arrange(iris_size, desc(Petal.Length))
+iris_rank
+
+```
+```{r Stdev and Means}
+?summarize_all()
+mean_by_species <- 
+  iris_data %>%
+  group_by(Species) %>%
+  summarize_all(list(mean,max))
+
+mean_by_species
+```
+
