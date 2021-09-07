@@ -14,22 +14,23 @@ library(dplyr)
 #%in% c(10,12)
 #!is.na
 ```
-
+#### Load iris data
 ```{r Load iris data}
+
 iris_data <- tibble(iris)
 str(iris_data)
 tail(iris_data)
 ```
-
+#### Arrange iris data based on Sepal.Length
 ```{r Arrange iris data}
 head(arrange(iris_data, Sepal.Length), n = 10)
 ```
-
+#### Select Species and Petal.Width
 ```{r Select operator}
 testdat <- select(iris_data, Species, Petal.Width)
 head(testdat)
 ```
-
+#### Find species means
 ```{r Species Means}
 species_mean <- 
   iris_data %>%
@@ -41,12 +42,12 @@ species_mean <-
 species_mean
 
 ```
-
-```{ Iris min}
+#### Filter Iris data based on Sepal.Width & Petal.Width
+```{r Iris min}
 iris_min <- filter(iris_data, Sepal.Width <= 3, Petal.Width != 2.5)
 head(iris_min)
 ```
-
+#### Categorize Sepal.Length
 ```{r Iris size}
 iris_size <- iris_data %>%
   mutate(Sepal.Size =
@@ -56,19 +57,23 @@ iris_size <- iris_data %>%
             Sepal.Length >= 6.5 ~ "large"))
 iris_size
 ```
-
+#### Rank Petal.Length
 ```{r Iris rank}
-iris_rank <- arrange(iris_size, desc(Petal.Length))
+iris_rank <- arrange(iris_data, desc(Petal.Length))
 iris_rank
-
 ```
+#### Stdevs and means for each Species
 ```{r Stdev and Means}
 ?summarize_all()
-mean_by_species <- 
+mean_by_species <-
   iris_data %>%
   group_by(Species) %>%
-  summarize_all(list(mean,max))
+  summarize_all(list(Mean = mean,Std_dev = sd))
 
 mean_by_species
+```
+
+```{r}
+
 ```
 
