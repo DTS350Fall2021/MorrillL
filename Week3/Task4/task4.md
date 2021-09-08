@@ -33,12 +33,6 @@ library(dplyr)
 ## 
 ##     intersect, setdiff, setequal, union
 ```
-
-```r
-#pipe %>% = 'then'
-#%in% c(10,12)
-#!is.na
-```
 #### Load iris data
 
 ```r
@@ -230,5 +224,21 @@ mean_by_species
 ## #   Petal.Width_Std_dev <dbl>
 ```
 
+### Report
+##### Question 1
 
+```r
+#Is there a link between livestock prices and crop prices?
+```
 
+##### Question 2
+
+```r
+#Why is it recommended to get 8 hours of sleep?
+```
+
+##### Question 3
+
+```r
+#How has modern science played a role in life expectancy?
+```
