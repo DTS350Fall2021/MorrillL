@@ -1,0 +1,53 @@
+---
+title: "Task 4"
+author: "Logan Morrill"
+date: "9/7/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+---
+
+### Day 5 examples
+##### Load Packages
+```{r Packages}
+library(tidyverse)
+library(downloader)
+library(readxl)
+
+```
+#### Parshing
+```{r Example 1}
+money <- c("4,554,25","$45","8025.33cents","288f45")
+as.numeric(money)
+parse_number(money)
+```
+As.numeric(money) outputs: NAs introduced by coercion.
+parse_number(money) outputs:  455425.00  45.00  8025.33  288.00
+
+```{r Example 2}
+my_string <- c("123",".","3a", "5.4")
+parse_integer(my_string, na = ".")
+```
+
+
+
+#### Parsing a File
+```{r Example 3}
+challenge <- read_csv(readr_example("challenge.csv"))
+```
+
+```{r}
+challenge <- read_csv(
+  readr_example("challenge.csv"),
+  col_types = cols(
+    x = col_double(),
+    y = col_date()
+  )
+)
+```
+
+```{r}
+
+```
+
