@@ -9,16 +9,30 @@ output:
     code_folding: 'hide'
 ---
 
-### Day 5 examples
 ##### Load Packages
 ```{r Packages}
 library(tidyverse)
 library(downloader)
 library(readxl)
+```
 
+```{r Load Data}
+SoloData <- tibble(read.csv("solo-artist-followers.csv"))
+head(SoloData)
+BillboardData <- tibble(read.csv("billboard-hits.csv"))
+head(BillboardData)
+```
+
+All data types seem to be imported correctly.
+
+```{r Filter}
+BillboardData <- BillboardData %>%
+  group_by(name) %>%
+  filter(n() >= 6)
+view(BillboardData)
 ```
 
 ```{r}
-BillboardData <- read.csv("billboard-hits.csv")
+
 ```
 
