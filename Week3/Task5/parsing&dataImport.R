@@ -59,6 +59,8 @@ ipeds_2011 <- ipeds %>%
 
 write_csv(ipeds_2011, "colleges_ipeds_completers_2011.csv")
 
+#Exercise 4
+
 ipeds_completers <- ipeds %>%
   filter(year == 2014:2015, fips == 6)
 head(ipeds_completers)
@@ -69,3 +71,12 @@ write_csv(ipeds_completers, "ipeds_completers_ca.csv")
 #readxl Package----
 download.file("https://www.hud.gov/sites/dfiles/Housing/documents/FHA_SFSnapshot_Apr2019.xlsx",
               "sfsnap.xlsx", mode = "wb")
+
+excel_sheets("sfsnap.xlsx")
+
+purchases <- read_excel("sfsnap.xlsx", sheet = "Purchase Data April 2019")
+view(purchases)
+
+#Exercise 5
+refinances <- read_excel("sfsnap.xlsx", sheet = "Refinance Data April 2019")
+view(refinances)
