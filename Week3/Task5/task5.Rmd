@@ -16,13 +16,14 @@ library(dplyr)
 library(downloader)
 library(readxl)
 ```
-
+##### Load Data
 ```{r Load Data}
 SoloData <- tibble(read.csv("solo-artist-followers.csv"))
 head(SoloData)
 BillboardData <- tibble(read.csv("billboard-hits.csv"))
 str(BillboardData)
 
+#Change peak_date to date
 BillboardData <- read_csv(
   ("billboard-hits.csv"),
   col_types = cols(
@@ -33,7 +34,7 @@ str(BillboardData)
 ```
 
 All data types seem to be imported correctly, except the peak_date for billboard data.
-Peak_date had to be coverted to data type date.
+Peak_date had to be converted to data type date.
 
 
 ```{r Filter billboard data}
@@ -49,6 +50,7 @@ str(atleast_six_hits)
 band_hits <- BillboardData %>% 
   group_by(band) %>%
   filter(name %in% atleast_six_hits$band)
+#Switch band and name column data
 band_hits <- rename(band_hits, band = name, name = band)
 view(band_hits)
 ```
@@ -63,3 +65,4 @@ ggplot(data = atleast_six_hits, aes(x = peak_date, y = peak_rank, color = name, 
   theme_bw()
 ```
 
+c
