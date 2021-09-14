@@ -36,7 +36,7 @@ str(BillboardData)
 All data types seem to be imported correctly, except the peak_date for billboard data.
 Peak_date had to be converted to data type date.
 
-
+#### Get hits data
 ```{r Filter billboard data}
 atleast_six_hits <- BillboardData %>%
   group_by(name) %>%
@@ -54,7 +54,7 @@ band_hits <- BillboardData %>%
 band_hits <- rename(band_hits, band = name, name = band)
 view(band_hits)
 ```
-
+#### Graph
 ```{r Graphing}
 ggplot(data = atleast_six_hits, aes(x = peak_date, y = peak_rank, color = name, group = name)) +
   geom_point() +
@@ -64,5 +64,6 @@ ggplot(data = atleast_six_hits, aes(x = peak_date, y = peak_rank, color = name, 
   facet_wrap(~band, scales = "free") +
   theme_bw()
 ```
-
-c
+It seems that majority of the top 100 hits for the bands are a result of having a good singer.
+However, the Jonas Brothers, One Direction, and New Edition have had several top 100 hits regardless of the singer.
+Beyonce seems to be the cause of majority of Destiny's Child top 100 hits.
