@@ -21,10 +21,19 @@ library(readxl)
 SoloData <- tibble(read.csv("solo-artist-followers.csv"))
 head(SoloData)
 BillboardData <- tibble(read.csv("billboard-hits.csv"))
-view(BillboardData)
+str(BillboardData)
+
+BillboardData <- read_csv(
+  ("billboard-hits.csv"),
+  col_types = cols(
+    peak_date = col_date()
+  )
+)
+str(BillboardData)
 ```
 
-All data types seem to be imported correctly.
+All data types seem to be imported correctly, except the peak_date for billboard data.
+Peak_date had to be coverted to data type date.
 
 
 ```{r Filter billboard data}
@@ -33,6 +42,7 @@ atleast_six_hits <- BillboardData %>%
   filter(n() > 6 & band != "")
 
 view(atleast_six_hits)
+str(atleast_six_hits)
 ```
 
 ```{r Get Band Hits}
@@ -49,7 +59,7 @@ ggplot(data = atleast_six_hits, aes(x = peak_date, y = peak_rank, color = name, 
   geom_line() +
   geom_point(data = band_hits, color = 'black') +
   geom_line(data = band_hits, color = 'black',linetype = 'dotted') +
-  facet_wrap(~band) +
+  facet_wrap(~band, scales = "free") +
   theme_bw()
 ```
 
