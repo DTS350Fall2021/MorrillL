@@ -67,3 +67,24 @@ ggplot(data = atleast_six_hits, aes(x = peak_date, y = peak_rank, color = name, 
 It seems that majority of the top 100 hits for the bands are a result of having a good singer.
 However, the Jonas Brothers, One Direction, and New Edition have had several top 100 hits regardless of the singer.
 Beyonce seems to be the cause of majority of Destiny's Child top 100 hits.
+
+### Additional data
+```{r Microsoft Data}
+#https://finance.yahoo.com/quote/MSFT/history?p=MSFT
+#Microsoft data for 1 year for daily candles
+microsftData <- tibble(read.csv("MSFT.csv"))
+#Change data to data type date
+microsftData <- read_csv(
+  ("MSFT.csv"),
+  col_types = cols(
+    Date = col_date()
+  )
+)
+str(microsftData)
+```
+
+```{r Shark Sighting Data}
+#https://www.google.com/earth/outreach/learn/visualize-your-data-on-a-custom-map-using-google-my-maps/
+#Great white shark sightings along the False Bay coastline in South Africa from September 8, 2012 to February 22, 2013
+sharkData <- tibble(read.csv("sharksightings.csv"))
+```
