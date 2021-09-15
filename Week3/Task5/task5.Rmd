@@ -10,18 +10,17 @@ output:
 ---
 
 
-```{r Packages include = FALSE}
+```{r include = FALSE}
 # Load Packages
 library(tidyverse)
-library(dplyr)
 library(downloader)
 library(readxl)
 ```
 ##### Load Data
 ```{r Load Data}
-SoloData <- tibble(read.csv("solo-artist-followers.csv"))
+SoloData <- tibble(read_csv("solo-artist-followers.csv"))
 head(SoloData)
-BillboardData <- tibble(read.csv("billboard-hits.csv"))
+BillboardData <- tibble(read_csv("billboard-hits.csv"))
 str(BillboardData)
 
 #Change peak_date to date
@@ -43,7 +42,7 @@ atleast_six_hits <- BillboardData %>%
   group_by(name) %>%
   filter(n() > 6 & band != "")
 
-head(atleast_six_hits)
+view(atleast_six_hits)
 str(atleast_six_hits)
 ```
 
@@ -71,21 +70,35 @@ Beyonce seems to be the cause of majority of Destiny's Child top 100 hits.
 
 ### Additional data
 ```{r Microsoft Data}
-#https://finance.yahoo.com/quote/MSFT/history?p=MSFT
-#Microsoft data for 1 year for daily candles
+
 microsftData <- tibble(read.csv("MSFT.csv"))
 #Change data to data type date
 microsftData <- read_csv(
   ("MSFT.csv"),
   col_types = cols(
-    Date = col_date()
+    Time = col_date()
   )
 )
 str(microsftData)
 ```
-
+https://finance.yahoo.com/quote/MSFT/history?p=MSFT
+Microsoft data for 1 year for daily candles
 ```{r Shark Sighting Data}
-#https://www.google.com/earth/outreach/learn/visualize-your-data-on-a-custom-map-using-google-my-maps/
-#Great white shark sightings along the False Bay coastline in South Africa from September 8, 2012 to February 22, 2013
-sharkData <- tibble(read.csv("sharksightings.csv"))
+june_2021_employment_Data <- tibble(read_csv("business-employment-data-june-2021-quarter.csv"))
+str(june_2021_employment_Data)
 ```
+https://www.stats.govt.nz/large-datasets/csv-files-for-download/
+Employment Data for quarter in June 2021
+```{r Cattle Price Data}
+cattle_priceData <- tibble(read_csv("cattle-futures.csv"))
+#Change data to data type date
+cattle_priceData <- read_csv(
+  ("cattle-futures.csv"),
+  col_types = cols(
+    date = col_date("%m/%d/%Y")
+  )
+)
+str(cattle_priceData)
+```
+https://www.macrotrends.net/futures/cattle
+Cattle Futures prices by year from 1964 to 2021
