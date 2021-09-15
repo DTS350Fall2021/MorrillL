@@ -9,8 +9,9 @@ output:
     code_folding: 'hide'
 ---
 
-##### Load Packages
-```{r Packages}
+
+```{r Packages include = FALSE}
+# Load Packages
 library(tidyverse)
 library(dplyr)
 library(downloader)
@@ -42,7 +43,7 @@ atleast_six_hits <- BillboardData %>%
   group_by(name) %>%
   filter(n() > 6 & band != "")
 
-view(atleast_six_hits)
+head(atleast_six_hits)
 str(atleast_six_hits)
 ```
 
@@ -52,7 +53,7 @@ band_hits <- BillboardData %>%
   filter(name %in% atleast_six_hits$band)
 #Switch band and name column data
 band_hits <- rename(band_hits, band = name, name = band)
-view(band_hits)
+head(band_hits)
 ```
 #### Graph
 ```{r Graphing}
