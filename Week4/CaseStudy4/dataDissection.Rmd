@@ -24,13 +24,27 @@ str(flightData)
 ```
 ### Which origin airport is best to minimize my chances of a late arrival when I am using Delta Airlines?
 
-##### Filter Delta Airlines
-```{r Filter Delta Airlines}
+```{r Best departure airport}
 ?flights
 head(airlines)
 
-deltaFlights <- flightData %>%
-  filter(carrier == "DL")
-deltaFlights
+best_delta_arrival_flights <- flightData %>%
+  select(carrier, year:day, arr_delay, origin) %>%
+  group_by(origin) %>%
+  filter(carrier == "DL") %>%
+  arrange(arr_delay)
+head(best_delta_arrival_flights)
+
+?airports
+#Figure out the name of the best airport for departure
+airports %>%
+  select(faa, name) %>%
+  filter(faa == "JFK")
+```
+John F Kennedy International is the best airport to depart from to minimize arrival delay on Delta Airline flights.
+
+### Which destination airport is the worst (you decide on the metric for worst) airport for arrival time?
+```{r Worst airport for arrival}
+
 ```
 
