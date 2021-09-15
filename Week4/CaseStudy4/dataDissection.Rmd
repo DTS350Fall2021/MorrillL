@@ -10,7 +10,7 @@ output:
 ---
 
 
-```{r Packages include = FALSE}
+```{r Packages, include = FALSE}
 # Load Packages
 library(nycflights13)
 library(tidyverse)
@@ -35,16 +35,26 @@ best_delta_arrival_flights <- flightData %>%
   arrange(arr_delay)
 head(best_delta_arrival_flights)
 
+#Find out the name of the best airport for arrival
 ?airports
-#Figure out the name of the best airport for departure
 airports %>%
   select(faa, name) %>%
   filter(faa == "JFK")
 ```
 John F Kennedy International is the best airport to depart from to minimize arrival delay on Delta Airline flights.
 
-### Which destination airport is the worst (you decide on the metric for worst) airport for arrival time?
+### Which destination airport is the worst airport for arrival time?
 ```{r Worst airport for arrival}
+worst_airport_delayed_arrival <- flightData %>%
+  group_by(origin) %>%
+  summarise(
+    avg_arrival_delay = mean(arr_delay, na.rm = TRUE))
+head(worst_airport_delayed_arrival)
 
+#Find out the name of the worst airport for arrival
+?airports
+airports %>%
+  select(faa, name) %>%
+  filter(faa == "EWR")
 ```
-
+Newark Liberty International it the worst airport for arrival time with an average delay of 9.1 minutes.
