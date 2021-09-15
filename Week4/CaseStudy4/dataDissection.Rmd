@@ -1,0 +1,36 @@
+---
+title: "Case Study 4"
+author: "Logan Morrill"
+date: "9/14/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+
+```{r Packages include = FALSE}
+# Load Packages
+library(nycflights13)
+library(tidyverse)
+```
+##### Load Data
+```{r Load Data}
+flightData <- tibble(flights)
+head(flightData)
+str(flightData)
+
+```
+### Which origin airport is best to minimize my chances of a late arrival when I am using Delta Airlines?
+
+##### Filter Delta Airlines
+```{r Filter Delta Airlines}
+?flights
+head(airlines)
+
+deltaFlights <- flightData %>%
+  filter(carrier == "DL")
+deltaFlights
+```
+
