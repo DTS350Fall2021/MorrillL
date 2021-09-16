@@ -20,6 +20,32 @@ head(iris)
 ```
 
 ```{r}
+largest_petal_width <- iris %>%
+  group_by(Species) %>%
+  filter(row_number(desc(Petal.Width)) == 1)
+largest_petal_width
 
+largest_petal_length <- iris %>%
+  group_by(Species) %>%
+  filter(row_number(desc(Petal.Length)) == 1)
+largest_petal_length
+```
+
+
+```{r}
+ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width, color = Species,
+                                  shape = Species)) +
+  geom_point(size = 2) +
+  geom_point(size = 5, shape = 1, color = 'black', data = largest_petal_width) +
+  geom_text(aes(color = Species, label = "Largest Petal Width"), data = largest_petal_width) +
+  geom_point(size = 5, shape = 1, color = 'black', data = largest_petal_length) +
+  geom_text(aes(color = Species, label = "Largest Petal Length"), data = largest_petal_length) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Sepal Width (cm)",
+       y = "Sepal Length (cm)",
+       title = "Different Iris Species Have Different Sepal Sizes",
+       subtitle = "The Largest Petal Sizes For Each Species Do Not Correspond To The Largest Sepal Sizes") +
+  theme(legend.position = 'bottom')
 ```
 
