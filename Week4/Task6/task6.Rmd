@@ -37,9 +37,9 @@ ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width, color = Spe
                                   shape = Species)) +
   geom_point(size = 2) +
   geom_point(size = 5, shape = 1, color = 'black', data = largest_petal_width) +
-  geom_text(aes(color = Species, label = "Largest Petal Width"), data = largest_petal_width) +
+  geom_text(aes(color = Species, label = "Largest Petal Width"), data = largest_petal_width, nudge_y = .015) +
   geom_point(size = 5, shape = 1, color = 'black', data = largest_petal_length) +
-  geom_text(aes(color = Species, label = "Largest Petal Length"), data = largest_petal_length) +
+  geom_text(aes(color = Species, label = "Largest Petal Length"), data = largest_petal_length,, nudge_y = -.015) +
   scale_x_log10() +
   scale_y_log10() +
   labs(x = "Sepal Width (cm)",
