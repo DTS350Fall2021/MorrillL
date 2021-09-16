@@ -1,0 +1,25 @@
+---
+title: "Task 6"
+author: "Logan Morrill"
+date: "9/16/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(lubridate)
+```
+##### Load Data
+```{r Load Data}
+head(iris)
+```
+
+```{r}
+
+```
+
