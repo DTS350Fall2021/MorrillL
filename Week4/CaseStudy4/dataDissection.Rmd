@@ -72,7 +72,7 @@ ggplot(data = flightData, aes(x = origin, y = arr_delay)) +
         plot.title = element_text(size = 22),
         legend.position = 'none')
 ```
-The graph confirms that EWR is th worst airport for arrival with an average delay that is almost twice as much as the other 2 airports. The delay of almost double could suggest that EWR has longer fligts.
+The graph confirms that EWR is th worst airport for arrival with an average delay that is almost twice as much as the other 2 airports. The delay of almost double could suggest that EWR has longer flights.
 
 ```{r}
 ggplot(data = flightData, aes(x = dep_delay, y = arr_delay)) +
