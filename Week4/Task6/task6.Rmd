@@ -21,6 +21,7 @@ library(readxl)
 head(iris)
 ```
 
+### Iris data
 ```{r}
 largest_petal_width <- iris %>%
   group_by(Species) %>%
@@ -33,7 +34,7 @@ largest_petal_length <- iris %>%
 largest_petal_length
 ```
 
-
+### Iris graph
 ```{r}
 ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width, color = Species,
                                   shape = Species)) +
@@ -41,7 +42,7 @@ ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width, color = Spe
   geom_point(size = 5, shape = 1, color = 'black', data = largest_petal_width) +
   geom_text(aes(color = Species, label = "Largest Petal Width"), data = largest_petal_width, nudge_y = .015) +
   geom_point(size = 5, shape = 1, color = 'black', data = largest_petal_length) +
-  geom_text(aes(color = Species, label = "Largest Petal Length"), data = largest_petal_length,, nudge_y = -.015) +
+  geom_text(aes(color = Species, label = "Largest Petal Length"), data = largest_petal_length, nudge_y = -.015) +
   scale_x_log10() +
   scale_y_log10() +
   labs(x = "Sepal Width (cm)",
@@ -50,7 +51,7 @@ ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width, color = Spe
        subtitle = "The Largest Petal Sizes For Each Species Do Not Correspond To The Largest Sepal Sizes") +
   theme(legend.position = 'bottom')
 ```
-
+### Load Scrabble Data
 ```{r}
 ScrabbleData <- tempfile()
 download("https://github.com/fivethirtyeight/data/raw/master/scrabble-games/scrabble_games.csv", ScrabbleData, mode = "wb")
@@ -83,19 +84,55 @@ weekly_average <- ScrabbleAll %>%
   group_by(week) %>%
   filter(year == 2006 | year == 2005) %>%
   mutate(average_score = mean(score))
-view(weekly_average)
+str(weekly_average)
 
-yes <- ScrabbleAll %>%
-  filter(year == 2006 & week == 9)
-view(yes)
+above_trend <- ScrabbleAll %>%
+  group_by(week) %>%
+  filter(year == 2006 | year == 2005) %>%
+   filter(date >= as.Date("2006-03-01")) %>%
+  summarise(average_score = mean(score))
+view(above_trend)
 
-ggplot(data = weekly_average, mapping = aes(x = date, y = average_score)) +
+below_trend <- ScrabbleAll %>%
+  group_by(week) %>%
+  filter(year == 2006 | year == 2005) %>%
+   filter(date >= as.Date("2006-03-01")) %>%
+  summarise(average_score = mean(score))
+view(below_trend)
+
+trend <- ScrabbleAll %>%
+  select(date, week, score) %>%
+  group_by(week) %>%
+   filter(date >= as.Date("2005-06-01") & date <= as.Date("2006-06-01")) %>%
+  mutate(average_score = mean(score))
+view(trend)
+
+ggplot(data = trend, mapping = aes(x = week, y = average_score)) +
+  geom_point()
+  #scale_x_date(date_breaks = "3 month", date_labels =  "%b %Y") +
+  #geom_vline(xintercept = as.numeric(as.Date("2006-03-01")), linetype = "dotted")
+
+weekly_average$seq <- ifelse((weekly_average$date < as.Date('2006-03-01')), 'Before', 'After')
+head(weekly_average)
+
+before <- weekly_average %>%
+  filter(week <= 9)
+before
+
+after <- weekly_average %>%
+  filter(week > 9)
+after
+
+
+ggplot(data = weekly_average, mapping = aes(x = week, y = average_score)) +
   geom_point() +
-  geom_smooth(method = lm) +
-  scale_x_date(date_breaks = "3 month", date_labels =  "%b %Y") +
-  #geom_vline(xintercept = 9, linetype = "dotted")
-
-  geom_vline(xintercept = as.numeric(as.Date("2006-03-01")), linetype = "dotted")
+  geom_smooth(data = before, method = 'lm', color="orange") +
+  geom_smooth(data = after, method = 'lm') +
+  #scale_x_date(date_breaks = "3 month", date_labels =  "%b %Y") +
+  #geom_vline(xintercept = as.numeric(as.Date("2006-03-01")), linetype = "dotted")
+  geom_vline(xintercept = 9, linetype = "dotted") +
+  coord_cartesian(xlim = c(0,20), ylim = c(355,405), expand = FALSE)
+?`lubridate-package`
 ```
 
 
