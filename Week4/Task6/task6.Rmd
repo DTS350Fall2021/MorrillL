@@ -13,6 +13,8 @@ output:
 #Packages
 library(tidyverse)
 library(lubridate)
+library(downloader)
+library(readxl)
 ```
 ##### Load Data
 ```{r Load Data}
@@ -48,4 +50,52 @@ ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width, color = Spe
        subtitle = "The Largest Petal Sizes For Each Species Do Not Correspond To The Largest Sepal Sizes") +
   theme(legend.position = 'bottom')
 ```
+
+```{r}
+ScrabbleData <- tempfile()
+download("https://github.com/fivethirtyeight/data/raw/master/scrabble-games/scrabble_games.csv", ScrabbleData, mode = "wb")
+Scrabble <- read.csv(ScrabbleData)
+head(Scrabble)
+
+Scrabble <- read_csv(
+  ScrabbleData,
+  col_types = cols(
+    date = col_date()
+  )
+)
+head(Scrabble)
+```
+
+```{r}
+ScrabbleAll <- Scrabble %>%
+  select(date, winnerscore, loserscore) %>%
+  pivot_longer(c("winnerscore","loserscore"), names_to = "win-loss", values_to = "score") %>%
+  filter(score > 0) %>%
+  mutate(year = year(date),
+         week = week(date)
+  )
+head(ScrabbleAll)
+```
+
+```{r}
+weekly_average <- ScrabbleAll %>%
+  select(date, year, score, week) %>%
+  group_by(week) %>%
+  filter(year == 2006 | year == 2005) %>%
+  mutate(average_score = mean(score))
+view(weekly_average)
+
+yes <- ScrabbleAll %>%
+  filter(year == 2006 & week == 9)
+view(yes)
+
+ggplot(data = weekly_average, mapping = aes(x = date, y = average_score)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  scale_x_date(date_breaks = "3 month", date_labels =  "%b %Y") +
+  #geom_vline(xintercept = 9, linetype = "dotted")
+
+  geom_vline(xintercept = as.numeric(as.Date("2006-03-01")), linetype = "dotted")
+```
+
 
