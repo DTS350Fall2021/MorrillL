@@ -1,0 +1,24 @@
+---
+title: "Case Study 5"
+author: "Logan Morrill"
+date: "9/21/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = False}
+#Packages
+library(tidyverse)
+library(downloader)
+library(readxl)
+```
+### Load Data
+```{r Load Data}
+GunData <- tempfile()
+download("https://raw.githubusercontent.com/fivethirtyeight/guns-data/master/full_data.csv", GunData, mode = "wb")
+gunData <- read_csv(GunData)
+head(gunData)
+```
