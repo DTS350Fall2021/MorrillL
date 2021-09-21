@@ -1,5 +1,5 @@
 ---
-title: "Task 6"
+title: "Task 8"
 author: "Logan Morrill"
 date: "9/21/2021"
 output: 
@@ -22,7 +22,7 @@ download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv"
 Height <- read_csv(HeightData)
 head(Height)
 ```
-
+### Add new column to specify grade
 ```{r}
 HeightEd <- Height %>%
   mutate(grade =
@@ -33,5 +33,19 @@ HeightEd <- Height %>%
             ed >= 13 & ed <= 15 ~ "associate",
             ed == 16 ~ "bachelors",
             ed == 17 | ed == 18 ~ "mastersdoctorate"))
+```
+### Relationship between education and race
+```{r Education and Race}
+HeightEd %>%
+  mutate(grade = as.factor(fct_reorder(grade, earn))) %>%
+  ggplot(aes(x = grade, y = earn, fill = race)) +
+    geom_boxplot()
+```
+### Relationship between education and sex
+```{r Education and Sex}
+HeightEd %>%
+  mutate(grade = as.factor(fct_reorder(grade, earn))) %>%
+  ggplot(aes(x = grade, y = earn, fill = sex)) +
+    geom_boxplot()
 ```
 
