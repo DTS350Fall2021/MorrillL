@@ -49,3 +49,22 @@ HeightEd %>%
     geom_boxplot()
 ```
 
+```{r}
+HeightEd %>%
+  mutate(grade = fct_relevel(grade, 
+            "primary", "secondary", "highschoolgrad", 
+            "associate", "bachelors", "mastersdoctorate"), 
+         grade = fct_collapse(grade,
+                                "3-6" = "primary",
+                                "7-11" = "secondary",
+                                "12" = "highschoolgrad",
+                                "13-15" = "associate",
+                                "16" = "bachelors",
+                                "17-18" = "mastersdoctorate")) %>%
+  ggplot(aes(x = grade, y = age, fill = grade)) +
+    geom_boxplot() +
+    labs(x = "Grades", y = "Age", title = "Age ranges for various grades") +
+    theme_bw() +
+    theme(legend.position = "none")
+```
+
