@@ -1,0 +1,26 @@
+---
+title: "Task 6"
+author: "Logan Morrill"
+date: "9/16/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = False}
+#Packages
+library(tidyverse)
+library(downloader)
+library(readxl)
+```
+### Load Data
+```{r Load Data}
+HeightData <- tempfile()
+download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv", HeightData, mode = "wb")
+Height <- read_csv(HeightData)
+str(Height)
+```
+
+
