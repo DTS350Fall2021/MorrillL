@@ -20,7 +20,18 @@ library(readxl)
 HeightData <- tempfile()
 download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv", HeightData, mode = "wb")
 Height <- read_csv(HeightData)
-str(Height)
+head(Height)
 ```
 
+```{r}
+HeightEd <- Height %>%
+  mutate(grade =
+          case_when(
+            ed >= 3 & ed <= 6 ~ "primary", 
+            ed >= 7 & ed <= 11 ~ "secondary",
+            ed == 12 ~ "highschoolgrad",
+            ed >= 13 & ed <= 15 ~ "associate",
+            ed == 16 ~ "bachelors",
+            ed == 17 | ed == 18 ~ "mastersdoctorate"))
+```
 
