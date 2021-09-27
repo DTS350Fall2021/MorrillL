@@ -266,8 +266,7 @@ season &lt;- gunData_new %&gt;%
             month &gt;= 3 &amp; month &lt;= 5 ~ &quot;spring&quot;,
             month &gt;= 6 &amp; month &lt;= 8 ~ &quot;summer&quot;,
             month &gt;= 9 &amp; month &lt;= 11 ~ &quot;fall&quot;,
-            month &gt;= 1 &amp; month &lt;= 2 ~ &quot;winter&quot;,
-            month == 12 ~ &quot;winter&quot;))</code></pre>
+            month == 12 | month &lt;= 2 ~ &quot;winter&quot;))</code></pre>
 <pre class="r"><code>#Graph 1
 ggplot(season, aes(intent, fill = education)) +
   geom_bar() +
