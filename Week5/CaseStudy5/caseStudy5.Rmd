@@ -20,5 +20,35 @@ library(readxl)
 GunData <- tempfile()
 download("https://raw.githubusercontent.com/fivethirtyeight/guns-data/master/full_data.csv", GunData, mode = "wb")
 gunData <- read_csv(GunData)
-head(gunData)
+gunData_new <- gunData %>%
+  filter(age != "", intent != "")
+str(gunData)
 ```
+
+```{r Graph 1}
+gunsData <- gunData_new %>%
+  mutate(agegroup =
+          case_when(
+            age >= 0 & age <= 14 ~ "under 15",
+            age >= 15 & age <= 34 ~ "15-34",
+            age >= 35 & age <= 64 ~ "35-64",
+            age >= 65 ~ "65+"),
+         agegroup = fct_relevel(agegroup, 
+            "under 15", "15-34", "35-64", 
+            "65+"))
+
+ggplot(data = gunsData, aes(x = agegroup, fill = sex)) +
+  geom_bar() +
+  facet_wrap(~intent, nrow = 2, scales = 'free') +
+  scale_fill_manual(values = c('#FD6D6D', '#5A84D3')) +
+  theme_bw()
+```
+
+```{r Graph 2}
+ggplot(data = gunData_new, aes(x = age, fill = intent)) +
+  geom_density() +
+  facet_wrap(~sex) +
+  theme_bw()
+  
+```
+
