@@ -55,7 +55,7 @@ ggplot(data = gunData_new, aes(x = age, fill = intent)) +
   
 ```
 
-```{r}
+```{r Create Seasons}
 gunData_new$month <- as.integer(gunData_new$month)
 season <- gunData_new %>%
   filter(education != "") %>%
