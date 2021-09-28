@@ -234,8 +234,8 @@ str(gunData)</code></pre>
 ##   ..   education = col_character()
 ##   .. )</code></pre>
 </div>
-<div id="graph-about-gun-deaths-for-different-age-groups" class="section level3">
-<h3>Graph about gun deaths for different age groups</h3>
+<div id="create-age-groups" class="section level3">
+<h3>Create age groups</h3>
 <pre class="r"><code>#Create age groups
 gunsData &lt;- gunData_new %&gt;%
   mutate(agegroup =
@@ -246,9 +246,11 @@ gunsData &lt;- gunData_new %&gt;%
             age &gt;= 65 ~ &quot;65+&quot;),
          agegroup = fct_relevel(agegroup, 
             &quot;under 15&quot;, &quot;15-34&quot;, &quot;35-64&quot;, 
-            &quot;65+&quot;))
-
-ggplot(data = gunsData, aes(x = agegroup, fill = sex)) +
+            &quot;65+&quot;))</code></pre>
+</div>
+<div id="graph-about-gun-deaths-for-different-age-groups" class="section level3">
+<h3>Graph about gun deaths for different age groups</h3>
+<pre class="r"><code>ggplot(data = gunsData, aes(x = agegroup, fill = sex)) +
   geom_bar() +
   facet_wrap(~intent, nrow = 2, scales = &#39;free&#39;) +
   scale_fill_manual(values = c(&#39;#FD6D6D&#39;, &#39;#5A84D3&#39;)) +

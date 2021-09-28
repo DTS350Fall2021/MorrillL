@@ -74,7 +74,7 @@ str(gunData)
 ##   ..   education = col_character()
 ##   .. )
 ```
-### Graph about gun deaths for different age groups
+### Create age groups
 
 ```r
 #Create age groups
@@ -88,7 +88,10 @@ gunsData <- gunData_new %>%
          agegroup = fct_relevel(agegroup, 
             "under 15", "15-34", "35-64", 
             "65+"))
+```
+### Graph about gun deaths for different age groups
 
+```r
 ggplot(data = gunsData, aes(x = agegroup, fill = sex)) +
   geom_bar() +
   facet_wrap(~intent, nrow = 2, scales = 'free') +
@@ -132,6 +135,7 @@ season <- gunData_new %>%
 ggplot(season, aes(intent, fill = education)) +
   geom_bar() +
   facet_wrap(~seasons, scales = "free") +
+  ggtitle("Education Level across different seasons") +
   theme_bw()
 ```
 
@@ -146,6 +150,7 @@ A vast majority of all gun deaths are because of suicide. Most gun deaths are al
 ggplot(season, aes(seasons, fill = race)) +
   geom_bar() +
   facet_wrap(~race, scales = 'free') +
+  ggtitle("Gun Deaths across different races for different seasons") +
   theme_bw() +
   theme(legend.position = 'none')
 ```

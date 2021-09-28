@@ -24,8 +24,8 @@ gunData_new <- gunData %>%
   filter(age != "", intent != "")
 str(gunData)
 ```
-### Graph about gun deaths for different age groups
-```{r Graph 1}
+### Create age groups
+```{r age groups}
 #Create age groups
 gunsData <- gunData_new %>%
   mutate(agegroup =
@@ -37,7 +37,9 @@ gunsData <- gunData_new %>%
          agegroup = fct_relevel(agegroup, 
             "under 15", "15-34", "35-64", 
             "65+"))
-
+```
+### Graph about gun deaths for different age groups
+```{r Graph 1}
 ggplot(data = gunsData, aes(x = agegroup, fill = sex)) +
   geom_bar() +
   facet_wrap(~intent, nrow = 2, scales = 'free') +
@@ -77,6 +79,7 @@ season <- gunData_new %>%
 ggplot(season, aes(intent, fill = education)) +
   geom_bar() +
   facet_wrap(~seasons, scales = "free") +
+  ggtitle("Education Level across different seasons") +
   theme_bw()
 ```
 A vast majority of all gun deaths are because of suicide. Most gun deaths are also by people that have a high school degree or a GED. Homicides for people with less than a high school education seem to increase in the summer and decrease in the winter. People with less than than high school education should be targeted more in the summer than the winter.
@@ -88,6 +91,7 @@ A vast majority of all gun deaths are because of suicide. Most gun deaths are al
 ggplot(season, aes(seasons, fill = race)) +
   geom_bar() +
   facet_wrap(~race, scales = 'free') +
+  ggtitle("Gun Deaths across different races for different seasons") +
   theme_bw() +
   theme(legend.position = 'none')
 ```
