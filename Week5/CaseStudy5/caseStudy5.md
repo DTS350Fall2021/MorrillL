@@ -135,7 +135,7 @@ ggplot(season, aes(intent, fill = education)) +
   theme_bw()
 ```
 
-![](caseStudy5_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](caseStudy5_files/figure-html/Different education levels-1.png)<!-- -->
 A vast majority of all gun deaths are because of suicide. Most gun deaths are also by people that have a high school degree or a GED. Homicides for people with less than a high school education seem to increase in the summer and decrease in the winter. People with less than than high school education should be targeted more in the summer than the winter.
 
 
@@ -150,5 +150,5 @@ ggplot(season, aes(seasons, fill = race)) +
   theme(legend.position = 'none')
 ```
 
-![](caseStudy5_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](caseStudy5_files/figure-html/Different races-1.png)<!-- -->
 The graphs show that gun deaths for Asians/Pacific Islanders increase in the fall and the summer and decrease in the spring and winter. For majority of the races, there seems to be a spike in gun deaths in the summer.

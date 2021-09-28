@@ -72,7 +72,7 @@ season <- gunData_new %>%
   
 ```
 ### Graph about gun deaths for different education levels across different seasons
-```{r}
+```{r Different education levels}
 #Graph 1
 ggplot(season, aes(intent, fill = education)) +
   geom_bar() +
@@ -83,7 +83,7 @@ A vast majority of all gun deaths are because of suicide. Most gun deaths are al
 
 
 ### Graph about gun deaths for different races for different seasons
-```{r}
+```{r Different races}
 #Graph 2
 ggplot(season, aes(seasons, fill = race)) +
   geom_bar() +
