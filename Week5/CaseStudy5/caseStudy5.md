@@ -74,9 +74,10 @@ str(gunData)
 ##   ..   education = col_character()
 ##   .. )
 ```
-
+### Graph about gun deaths for different age groups
 
 ```r
+#Create age groups
 gunsData <- gunData_new %>%
   mutate(agegroup =
           case_when(
@@ -97,11 +98,11 @@ ggplot(data = gunsData, aes(x = agegroup, fill = sex)) +
 ```
 
 ![](caseStudy5_files/figure-html/Graph 1-1.png)<!-- -->
-
+### Graph about male gun deaths vs female gun deaths
 
 ```r
 ggplot(data = gunData_new, aes(x = age, fill = intent)) +
-  geom_density(position = 'fill') +
+  geom_density(position = 'fill', alpha = .6) +
   facet_wrap(~sex) +
   scale_fill_manual(values = c("#8CDBAA","#FFA727","lightslateblue","hotpink")) +
   ggtitle("Gun Deaths Male vs. Female") +
@@ -109,7 +110,7 @@ ggplot(data = gunData_new, aes(x = age, fill = intent)) +
 ```
 
 ![](caseStudy5_files/figure-html/Graph 2-1.png)<!-- -->
-
+### Create Seasons based on months
 
 ```r
 gunData_new$month <- as.integer(gunData_new$month)
@@ -122,7 +123,7 @@ season <- gunData_new %>%
             month >= 9 & month <= 11 ~ "fall",
             month == 12 | month <= 2 ~ "winter"))
 ```
-
+### Graph about gun deaths for different education levels across different seasons
 
 ```r
 #Graph 1
@@ -136,7 +137,7 @@ ggplot(season, aes(intent, fill = education)) +
 A vast majority of all gun deaths are because of suicide. Most gun deaths are also by people that have a high school degree or a GED. Homicides for people with less than a high school education seem to increase in the summer and decrease in the winter. People with less than than high school education should be targeted more in the summer than the winter.
 
 
-
+### Graph about gun deaths for different races for different seasons
 
 ```r
 #Graph 2
