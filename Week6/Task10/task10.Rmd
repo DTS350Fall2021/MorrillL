@@ -18,9 +18,20 @@ library(tidyverse)
 ```{r}
 ?ToothGrowth
 head(ToothGrowth)
+str(ToothGrowth)
 ```
 
-```{r}
-
+```{r Supplement type}
+ggplot(ToothGrowth, aes(supp, len)) +
+  geom_boxplot(aes(fill = supp)) +
+  scale_fill_manual(values = c('orange','yellow')) +
+  scale_y_continuous(limits = c(0,40), breaks = seq(0,40,4)) +
+  scale_x_discrete(labels = c('Orange Juice', 'Ascorbic Acid')) +
+  labs(x = 'Vitamin C Delivery', y = 'Tooth length', title = 'Supplement Delivery effect on Tooth Length',
+       subtitle = 'Does the mode of delivery of vitamin C effect the tooth length of guinea pigs?') +
+  theme_bw() +
+  theme(legend.position = 'none')
 ```
+This graph shows the result of the vitamin C delivery method had on the tooth length. I choose a box plot because it shows the range, the median, and the quartiles of the data. Ascorbic Acid has a bigger range of tooth length but Orange Juice has a higher median.
+
 
