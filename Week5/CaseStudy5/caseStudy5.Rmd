@@ -57,7 +57,6 @@ ggplot(data = gunData_new, aes(x = age, fill = intent)) +
 ```
 ### Create Seasons based on months
 ```{r Create Seasons}
-gunData_new$month <- as.integer(gunData_new$month)
 
 season <- gunData_new %>%
   filter(education != "") %>%
@@ -65,9 +64,8 @@ season <- gunData_new %>%
     "Spring" = c("03", "04", "05"),
     "Summer" = c("06", "07", "08"),
     "Fall" = c("09", "10", "11"),
-    "Winter" = c("12", "01", "02"),
-  )))# %>%
-  #mutate(intent = as.factor(fct_reorder(intent, seasons))) %>%
+    "Winter" = c("12", "01", "02")
+  )))
   
 ```
 ### Graph about gun deaths for different education levels across different seasons
