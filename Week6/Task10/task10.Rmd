@@ -1,0 +1,26 @@
+---
+title: "Task 10"
+author: "Logan Morrill"
+date: "9/28/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+### Load packages
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+```
+### Load data
+```{r}
+?ToothGrowth
+head(ToothGrowth)
+```
+
+```{r}
+
+```
+
