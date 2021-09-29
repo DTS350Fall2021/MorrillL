@@ -45,7 +45,7 @@ ggplot(ToothGrowth, aes(factor(dose), len)) +
   theme(legend.position = 'none')
 ```
 
-```{r Weight on 1/4 mile}
+```{r Weight vs quarter mile}
 ?mtcars
 head(mtcars)
 ggplot(mtcars, aes(x = qsec, y = wt)) +
@@ -57,7 +57,7 @@ ggplot(mtcars, aes(x = qsec, y = wt)) +
   theme_bw()
 ```
 I choose to do a linear regression to show the relationship between the weight and quarter mile time. It seems there may be a slight negative correlation but the confidence intervals are too wide to tell. I also grouped the data points by engine cylinders. The more cylinders in the engine means the more weight, but a higher quarter mile time.
-```{r}
+```{r hp vs mpg}
 ggplot(mtcars, aes(x = hp, y = mpg)) +
   geom_point(aes(color = factor(cyl))) +
   geom_smooth(method = 'lm', color = 'black') +

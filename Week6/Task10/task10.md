@@ -106,7 +106,7 @@ ggplot(mtcars, aes(x = qsec, y = wt)) +
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-![](task10_files/figure-html/Weight on 1/4 mile-1.png)<!-- -->
+![](task10_files/figure-html/Weight vs quarter mile-1.png)<!-- -->
 I choose to do a linear regression to show the relationship between the weight and quarter mile time. It seems there may be a slight negative correlation but the confidence intervals are too wide to tell. I also grouped the data points by engine cylinders. The more cylinders in the engine means the more weight, but a higher quarter mile time.
 
 ```r
@@ -123,5 +123,5 @@ ggplot(mtcars, aes(x = hp, y = mpg)) +
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-![](task10_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](task10_files/figure-html/hp vs mpg-1.png)<!-- -->
 I choose to do a linear regression to show the relationship between the horsepower and the miles per gallon. There is a significant negative correlation. I also grouped the data points by engine cylinders. The more cylinders in the engine increases the horsepower, but decreases the miles per gallon.
