@@ -20,6 +20,7 @@ library(ourworldindata)
 #Load Data
 #?financing_healthcare
 head(financing_healthcare)
+head(child_mortality)
 ```
 ### Graphing child mortality over time
 ```{r Child mortality}
@@ -41,3 +42,4 @@ financing_healthcare %>%
           plot.caption = element_text(hjust = 0, colour = 'gray40'))
 
 ```
+It seems that child mortality rates for the world was holding steady at 500 deaths per 1000 births, a 1:2 ratio. However, around 1925 the mortality rate seemed to decrease substantially. It turns out the decrease in rate was because of an increase in living conditions.

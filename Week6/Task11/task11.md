@@ -38,3 +38,4 @@ financing_healthcare %>%
 ```
 
 ![](task11_files/figure-html/Child mortality-1.png)<!-- -->
+It seems that child mortality rates for the world was holding steady at 500 deaths per 1000 births, a 1:2 ratio. However, around 1925 the mortality rate seemed to decrease substantially. It turns out the decrease in rate was because of an increase in living conditions.
