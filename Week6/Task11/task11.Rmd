@@ -13,9 +13,13 @@ output:
 ```{r include = FALSE}
 #Packages
 library(tidyverse)
+#devtools::install_github("drsimonj/ourworldindata")
+library(ourworldindata)
 ```
 ### Load data
 ```{r}
+?financing_healthcare
+head(financing_healthcare)
 
 ```
 
