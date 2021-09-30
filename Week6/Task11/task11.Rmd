@@ -41,4 +41,4 @@ financing_healthcare %>%
           plot.caption = element_text(hjust = 0, colour = 'gray40'))
 
 ```
-It seems that child mortality rates for the world was holding steady at 500 deaths per 1000 births, a 1:2 ratio. However, around 1925 the mortality rate seemed to decrease substantially. It turns out the decrease in rate was because of an increase in living conditions.
+It seems that child mortality rates for the world was holding steady at 500 deaths per 1000 births, a 1:2 ratio. However, around 1925 the mortality rate seemed to decrease substantially. Looking into the reason why, it turns out the decrease in rate was because of an increase in living conditions. These living conditions helped decrease neonatal causes, diarrhea, and pneumonia related deaths, which were responsible for majority of child deaths. 
