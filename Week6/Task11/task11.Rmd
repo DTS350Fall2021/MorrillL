@@ -20,7 +20,6 @@ library(ourworldindata)
 #Load Data
 #?financing_healthcare
 head(financing_healthcare)
-head(child_mortality)
 ```
 ### Graphing child mortality over time
 ```{r Child mortality}
