@@ -1,7 +1,7 @@
 ---
-title: "Task 10"
+title: "Task 11"
 author: "Logan Morrill"
-date: "9/28/2021"
+date: "9/30/2021"
 output: 
   html_document:
     theme: united
@@ -9,38 +9,9 @@ output:
     code_folding: 'hide'
 ---
 
-### Load packages
 
-### Load data
 
-```r
-?financing_healthcare
-```
 
-```
-## starting httpd help server ... done
-```
-
-```r
-head(financing_healthcare)
-```
-
-```
-## # A tibble: 6 x 17
-##    year country     continent health_exp_total health_exp_publ~ health_insurance
-##   <int> <chr>       <chr>                <dbl>            <dbl>            <int>
-## 1  2015 Abkhazia    <NA>                    NA               NA               NA
-## 2  1800 Afghanistan Asia                    NA               NA               NA
-## 3  1801 Afghanistan Asia                    NA               NA               NA
-## 4  1802 Afghanistan Asia                    NA               NA               NA
-## 5  1803 Afghanistan Asia                    NA               NA               NA
-## 6  1804 Afghanistan Asia                    NA               NA               NA
-## # ... with 11 more variables: nhs_exp <dbl>, health_exp_private <dbl>,
-## #   health_insurance_govt <dbl>, health_insurance_private <dbl>,
-## #   health_insurance_any <dbl>, health_exp_public_percent <dbl>,
-## #   health_exp_oop_percent <dbl>, no_health_insurance <dbl>, gdp <dbl>,
-## #   life_expectancy <dbl>, child_mort <dbl>
-```
 ### Graphing child mortality over time
 
 ```r

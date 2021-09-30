@@ -1,7 +1,7 @@
 ---
-title: "Task 10"
+title: "Task 11"
 author: "Logan Morrill"
-date: "9/28/2021"
+date: "9/30/2021"
 output: 
   html_document:
     theme: united
@@ -9,16 +9,16 @@ output:
     code_folding: 'hide'
 ---
 
-### Load packages
 ```{r include = FALSE}
 #Packages
 library(tidyverse)
 #devtools::install_github("drsimonj/ourworldindata")
 library(ourworldindata)
 ```
-### Load data
-```{r}
-?financing_healthcare
+
+```{r include = FALSE}
+#Load Data
+#?financing_healthcare
 head(financing_healthcare)
 ```
 ### Graphing child mortality over time
