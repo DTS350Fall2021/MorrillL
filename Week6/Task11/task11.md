@@ -26,7 +26,11 @@ financing_healthcare %>%
   labs(x = 'Year', y = 'Child Mortality (0-5 year-olds dying per 1,000 born)', title = 'Child Mortality over Time',
        subtitle = 'A big decrease in child morality was seen around 1925 because\nof the increase in living conditions across the world.',
        caption = 'Source: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1449154/') +
-    theme_bw()
+    theme_bw() +
+    theme(legend.position =  'none',
+          plot.title = element_text(size = 16,margin = margin(t = 1)),
+          plot.subtitle = element_text(size = 10), 
+          plot.caption = element_text(hjust = 0, colour = 'gray40'))
 ```
 
 ```
