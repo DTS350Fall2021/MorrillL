@@ -188,7 +188,7 @@ pre code {
 <pre class="r"><code>financing_healthcare %&gt;%
   filter(continent != &quot;&quot;, child_mort != &quot;&quot;) %&gt;%
   ggplot(aes(year, child_mort, color = continent)) +
-    geom_point() +
+    geom_point(aes()) +
     geom_smooth(color = &#39;black&#39;) +
     geom_vline(xintercept = 1925, linetype = &#39;dotted&#39;) +
     annotate(&quot;text&quot;, x = 1925, y = 750, label = &#39;1925&#39;) +

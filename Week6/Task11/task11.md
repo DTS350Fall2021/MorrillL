@@ -18,7 +18,7 @@ output:
 financing_healthcare %>%
   filter(continent != "", child_mort != "") %>%
   ggplot(aes(year, child_mort, color = continent)) +
-    geom_point() +
+    geom_point(aes()) +
     geom_smooth(color = 'black') +
     geom_vline(xintercept = 1925, linetype = 'dotted') +
     annotate("text", x = 1925, y = 750, label = '1925') +
