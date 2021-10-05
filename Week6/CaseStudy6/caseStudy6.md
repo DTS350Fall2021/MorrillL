@@ -9,20 +9,12 @@ output:
     code_folding: 'hide'
 ---
 
-```{r include = FALSE}
-#Packages
-library(tidyverse)
-library(gridExtra)
-```
 
-```{r include = FALSE}
-#Load Data
-?diamonds
-head(diamonds)
-str(diamonds)
-```
 
-```{r Diamond Length Distribution}
+
+
+
+```r
 ggplot(diamonds, aes(x)) +
   geom_histogram(color = 'black', fill = 'snow2') +
   labs(x = 'Length (mm)', y = 'Number of Observations', title = 'Distribution of Diamond Lengths') +
@@ -30,7 +22,14 @@ ggplot(diamonds, aes(x)) +
   theme_bw()
 ```
 
-```{r Diamond Width Distribution}
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](caseStudy6_files/figure-html/Diamond Length Distribution-1.png)<!-- -->
+
+
+```r
 ggplot(diamonds, aes(y)) +
   geom_histogram(color = 'black', fill = 'snow2', binwidth = .20) +
   labs(x = 'Width (mm)', y = 'Number of Observations', title = 'Distribution of Diamond Widths') +
@@ -38,7 +37,10 @@ ggplot(diamonds, aes(y)) +
   theme_bw()
 ```
 
-```{r Diamond Depth Distribution}
+![](caseStudy6_files/figure-html/Diamond Width Distribution-1.png)<!-- -->
+
+
+```r
 ggplot(diamonds, aes(z)) +
   geom_histogram(color = 'black', fill = 'snow2', binwidth = .20) +
   labs(x = 'Depth (mm)', y = 'Number of Observations', title = 'Distribution of Diamond Depth') +
@@ -46,16 +48,26 @@ ggplot(diamonds, aes(z)) +
   theme_bw()
 ```
 
-```{r Diamond Price Distribution}
+![](caseStudy6_files/figure-html/Diamond Depth Distribution-1.png)<!-- -->
+
+
+```r
 ggplot(diamonds, aes(price)) +
   geom_histogram(color = 'black', fill = 'snow2') +
   labs(x = 'Price ($USD)', y = 'Number of Observations', title = 'Distribution of Diamond Price') +
   theme_bw()
 ```
 
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](caseStudy6_files/figure-html/Diamond Price Distribution-1.png)<!-- -->
+
 The distribution of price of diamonds is right skewed. The majority of the price of diamonds seems to be on the cheaper side between $0 and $5000.
 
-```{r Carat vs. Price}
+
+```r
 ggplot(diamonds, aes(carat, price)) +
   geom_point() +
   geom_smooth() +
@@ -64,16 +76,26 @@ ggplot(diamonds, aes(carat, price)) +
   theme_bw()
 ```
 
-```{r Cut vs. Carat}
+```
+## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+```
+
+![](caseStudy6_files/figure-html/Carat vs. Price-1.png)<!-- -->
+
+
+```r
 ggplot(diamonds, aes(cut, carat)) +
   geom_boxplot(aes(fill = cut), color = 'green') +
   labs(x = 'Cut', y = 'Carat', title = 'Diamond Cut vs. Carat') +
   theme_bw() +
   theme(legend.position = 'none')
 ```
+
+![](caseStudy6_files/figure-html/Cut vs. Carat-1.png)<!-- -->
 The Cut seems to have a slight negative correlation with Carat. As the Cut gets better the Carat seems slightly decrease.
 
-```{r Diamond Carat vs Price group by Clarity}
+
+```r
 ggplot(data = diamonds, aes(x = carat, y = price)) + 
   geom_point(aes(color = clarity), alpha = 0.6, position = 'jitter') +
   scale_y_continuous(limits = c(350, 15000),
@@ -82,8 +104,15 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
   labs(x = 'Carat', y = 'Price ($USD)', title = 'Diamond Carat vs. Price') +
   theme_bw()
 ```
+
+```
+## Warning: Removed 1673 rows containing missing values (geom_point).
+```
+
+![](caseStudy6_files/figure-html/Diamond Carat vs Price group by Clarity-1.png)<!-- -->
 The higher the Carat the higher price will be. The higher the Carat, the less the cut will be. This means, the higher the Carat, the higher the price, but the quality will decrease.
-```{r Carat by Price}
+
+```r
 diamonds %>%
   mutate(price_part =
            case_when(
@@ -101,7 +130,10 @@ diamonds %>%
     labs(x = 'Carat', y = 'Price ($USD)', title = 'Carat grouped by Price', fill = "Price Ranges") +
     theme_bw()
 ```
-```{r Large vs Small Diamonds}
+
+![](caseStudy6_files/figure-html/Carat by Price-1.png)<!-- -->
+
+```r
 p1 <- diamonds %>%
   filter(carat >= 4) %>%
   ggplot(aes(price)) +
@@ -118,9 +150,17 @@ p2 <- diamonds %>%
 
 grid.arrange(p1, p2, nrow = 2)
 ```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](caseStudy6_files/figure-html/Large vs Small Diamonds-1.png)<!-- -->
 Large diamonds are more expensive than small diamonds, which was expected. It was also expected that there would be many more small diamonds than big diamonds, which turned out to be true. Also both graphs confirm the expectation that as diamond size increases, price increases.
 
-```{r Combined Distribution}
+
+```r
 ggplot(diamonds, aes(x = carat, y = price, fill = cut)) +
     geom_col(alpha = .8) +
     coord_cartesian(xlim = c(0,3), ylim = c(0, 2500000), expand = FALSE) +
@@ -129,4 +169,6 @@ ggplot(diamonds, aes(x = carat, y = price, fill = cut)) +
     theme_bw() +
     theme(legend.position = 'none')
 ```
+
+![](caseStudy6_files/figure-html/Combined Distribution-1.png)<!-- -->
 
