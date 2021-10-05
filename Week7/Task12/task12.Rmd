@@ -1,0 +1,26 @@
+---
+title: "Task 12"
+author: "Logan Morrill"
+date: "10/5/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(downloader)
+library(readxl)
+```
+
+```{r include = FALSE}
+#Load Data
+movie_data <- tempfile()
+download("https://raw.githubusercontent.com/fivethirtyeight/data/master/fandango/fandango_score_comparison.csv", movie_data, mode = "wb")
+movies <- read_csv(movie_data)
+
+str(gunData)
+```
