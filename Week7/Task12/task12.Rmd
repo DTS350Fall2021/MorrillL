@@ -45,4 +45,4 @@ ggplot(ratings, aes(x = FILM, y = rating, color = rater)) +
   labs(x = 'Film', y = 'Rating', title = 'Moving Ratings') +
   theme_bw()
 ```
-Fandango seems to give higher ratings. Fandango ratings also do not seem to change much. For half of the films, the ratings seem to be similar. However, for the other half the ratings are all over the place.
+For the graph, I plotted the rating with a point and made a line to show the different trends among different critics. Fandango seems to give higher ratings. Fandango ratings also do not seem to change much. For half of the films, the ratings seem to be similar. However, for the other half the ratings are all over the place.
