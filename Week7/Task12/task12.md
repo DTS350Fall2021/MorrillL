@@ -9,33 +9,14 @@ output:
     code_folding: 'hide'
 ---
 
-```{r include = FALSE}
-#Packages
-library(tidyverse)
-library(downloader)
-library(readxl)
-```
 
-```{r include = FALSE}
-#Load Data
-movie_data <- tempfile()
-download("https://raw.githubusercontent.com/fivethirtyeight/data/master/fandango/fandango_score_comparison.csv", movie_data, mode = "wb")
-movie_ratings <- read_csv(movie_data)
 
-str(movie_ratings)
-```
 
-```{r include = FALSE}
-#Filter for similar movie ratings
-ratings <- movie_ratings %>%
-  select(FILM, Fandango_Ratingvalue, RT_norm, Metacritic_norm, IMDB_norm) %>%
-  pivot_longer(2:5, names_to = "rater", values_to = "rating") %>%
-  select(FILM, rater, rating) %>%
-  head(n = 20)
-ratings
-```
 
-```{r Moving Ratings}
+
+
+
+```r
 ggplot(ratings, aes(x = FILM, y = rating, color = rater)) +
   geom_point() +
   geom_line(aes(group = rater)) +
@@ -45,4 +26,6 @@ ggplot(ratings, aes(x = FILM, y = rating, color = rater)) +
   labs(x = 'Film', y = 'Rating', title = 'Moving Ratings') +
   theme_bw()
 ```
+
+![](task12_files/figure-html/Moving Ratings-1.png)<!-- -->
 Fandango seems to give higher ratings. Fandango ratings also do not seem to change much. For half of the films, the ratings seem to be similar. However, for the other half the ratings are all over the place.
