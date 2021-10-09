@@ -1,7 +1,7 @@
 ---
-title: "Task 12"
+title: "Same Data, Different Format, and Tidy"
 author: "Logan Morrill"
-date: "10/5/2021"
+date: "10/7/2021"
 output: 
   html_document:
     theme: united
@@ -12,7 +12,44 @@ output:
 ```{r include = FALSE}
 #Packages
 library(tidyverse)
-library(downloader)
+library(haven)
 library(readxl)
+library(downloader)
+```
+
+```{r include = FALSE}
+#Load Data
+
+#Rds Data
+rds_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.RDS?raw=true", rds_data , mode = "wb")
+dart_expert_rds <- read_rds(rds_data)
+
+#Csv Data
+csv_data <- tempfile()
+download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.csv", csv_data , mode = "wb")
+dart_expert_csv <- read_csv(csv_data)
+
+#Dta Data
+dta_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.dta?raw=true", dta_data , mode = "wb")
+dart_expert_dta <- read_dta(dta_data)
+
+#Sav Data
+sav_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.sav?raw=true", sav_data, mode = "wb")
+dart_expert_sav <- read_sav(sav_data)
+
+#xlsx Data
+xlsx_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.xlsx?raw=true", xlsx_data, mode = "wb")
+dart_expert_xlsx <- read_xlsx(xlsx_data)
+
+```
+
+
+```{r include=FALSE}
+#Confirm data is equal
+all_equal(dart_expert_rds, dart_expert_csv, dart_expert_dta, dart_expert_sav, dart_expert_xlsx)
 ```
 
