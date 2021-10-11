@@ -1,7 +1,7 @@
 ---
-title: "Same Data, Different Format, and Tidy"
+title: "Clean Your Data"
 author: "Logan Morrill"
-date: "10/7/2021"
+date: "10/11/2021"
 output: 
   html_document:
     theme: united
@@ -45,48 +45,5 @@ xlsx_data <- tempfile()
 download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.xlsx?raw=true", xlsx_data, mode = "wb")
 dart_expert_xlsx <- read_xlsx(xlsx_data)
 
-```
-
-```{r include=FALSE}
-#Confirm data is equal
-all_equal(dart_expert_rds, dart_expert_csv, dart_expert_dta, convert = TRUE)
-all_equal(dart_expert_csv, dart_expert_sav, dart_expert_xlsx, convert = TRUE)
-```
-
-```{r BoxPlot}
-head(dart_expert_csv)
-ggplot(dart_expert_csv, aes(x = variable, y = value, fill = variable)) +
-  geom_boxplot()
-```
-
-```{r Jittered Returns}
-ggplot(dart_expert_csv, aes(x = contest_period, y = value)) +
-  geom_jitter(aes(color = variable)) +
-  facet_wrap(~variable)
-```
-
-```{r Average Returns}
-ggplot(dart_expert_csv, aes(x = contest_period, y = value, group = variable)) +
-  geom_line(aes(color = variable))
-```
-
-```{r}
-head(dart_expert_csv, n = 10)
-DJIA_returns <- dart_expert_csv %>%
-  filter(variable == 'DJIA') %>%
-  mutate(contest_period = str_replace_all(contest_period, '19', '_19'),
-         contest_period = str_replace(contest_period, 'Febuary', 'February'),
-         contest_period = str_replace(contest_period, 'Dec._1993', 'December_1993')) %>%
-  separate(contest_period, into = c("Month", "year_end"), sep = c('-')) %>%
-  separate(year_end, into = c("Month", "year"), sep = '_') %>%
-  pivot_wider(names_from = "year", values_from = "value") %>%
-  arrange(factor(Month, levels = month.name)) %>%
-  select(-variable)
-view(DJIA_returns)
-```
-
-```{r include = FALSE}
-#Create RDS file
- saveRDS(DJIA_returns, file = "DJIA_returns.rds")
 ```
 
