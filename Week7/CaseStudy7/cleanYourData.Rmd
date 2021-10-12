@@ -15,35 +15,46 @@ library(tidyverse)
 library(haven)
 library(readxl)
 library(downloader)
+library(foreign)
+library(textreadr)
 ```
 
 ```{r include = FALSE}
 #Load Data
 
-#Rds Data
-rds_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.RDS?raw=true", rds_data , mode = "wb")
-dart_expert_rds <- read_rds(rds_data)
+#xlsx Data
+xlsx_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/Height.xlsx?raw=true", xlsx_data, mode = "wb")
+height_xlsx <- read_xlsx(xlsx_data)
+
+#Dta Data
+dta1_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/germanconscr.dta?raw=true", dta1_data , mode = "wb")
+german_conscr_dta <- read_dta(dta1_data)
+
+dta2_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/germanprison.dta?raw=true", dta2_data , mode = "wb")
+german_prison_dta <- read_dta(dta2_data)
+
+#DBF Data
+dbf_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/Heights_south-east/B6090.DBF?raw=true", dbf_data , mode = "wb")
+heights_south_east_dbf <- read.dbf(dbf_data, as.is = FALSE)
+
+
+#RTF Data
+rtf_data <- tempfile()
+download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/Heights_south-east/b6090.rtf", rtf_data , mode = "wb")
+heights_south_east_rtf <- read_rtf(rtf_data)
+head(heights_south_east_rtf)
 
 #Csv Data
 csv_data <- tempfile()
-download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.csv", csv_data , mode = "wb")
-dart_expert_csv <- read_csv(csv_data)
+download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv", csv_data , mode = "wb")
+wage_height_csv <- read_csv(csv_data)
 
-#Dta Data
-dta_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.dta?raw=true", dta_data , mode = "wb")
-dart_expert_dta <- read_dta(dta_data)
-
-#Sav Data
-sav_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.sav?raw=true", sav_data, mode = "wb")
-dart_expert_sav <- read_sav(sav_data)
-
-#xlsx Data
-xlsx_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/blob/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.xlsx?raw=true", xlsx_data, mode = "wb")
-dart_expert_xlsx <- read_xlsx(xlsx_data)
-
+```
+```{r}
+head(height_xlsx)
 ```
 
