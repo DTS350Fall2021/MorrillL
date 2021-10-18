@@ -41,9 +41,9 @@ dbf_Data <- read.dbf(dbf_data, as.is = FALSE)
 
 #CSv Data
 csv_data <- tempfile()
-download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv?raw=true", csv_data, mode = "wb")
+download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv", csv_data, mode = "wb")
 csv_Data <- read_csv(csv_data)
-
+head(csv_Data)
 #Sav Data
 sav_data <- tempfile()
 download("http://www.ssc.wisc.edu/nsfh/wave3/NSFH3%20Apr%202005%20release/main05022005.sav", sav_data, mode = "wb")
@@ -51,58 +51,84 @@ sav_Data <- read_sav(sav_data)
 
 ```
 
-```{r}
+```{r include = FALSE}
 worlddata <- xlsx_Data %>%  
   pivot_longer(3:203, names_to = "years", values_to = "heights.cm", values_drop_na = TRUE) %>%   mutate(year_decade = years, 
-         height.in = heights.cm/2.54) %>%  
+         height.in = heights.cm / 2.54) %>%  
   separate(years, into = c("century", "decade"), sep = -2) %>%  
   separate(decade, into = c("decade", "year"), sep = -1)
+head(worlddata)
+write.csv(worlddata,"worlddata.csv", row.names = TRUE)
 ```
 
-```{r}
-dta_Data %>%  mutate(birth_year = bdec, 
+```{r include = FALSE}
+two <- dta_Data %>%  mutate(birth_year = bdec, 
          height.cm = height, 
-         height.in = height.cm/2.54,
-         study_id = 'data2') %>%  
+         height.in = height.cm / 2.54,
+         study_id = 'German male conscripts in Bavaria, 19th centery') %>%  
   select(birth_year, height.cm, height.in, study_id)
 ```
 
-```{r}
-dta_Data2 %>%
+```{r include = FALSE}
+three <- dta_Data2 %>%
   mutate(birth_year = bdec,
          height.cm = height,
-         height.in = height.cm/ 2.54,
-         study_id = 'data3') %>%
+         height.in = height.cm / 2.54,
+         study_id = 'Heights of bavarian male conscripts, 19th century') %>%
   select(birth_year, height.in, height.cm, study_id)
 ```
 
-```{r}
-dbf_Data %>%  
-  mutate(height.in = CMETER/2.54,
+```{r include = FALSE}
+four <- dbf_Data %>%  
+  mutate(height.in = CMETER / 2.54,
          height.cm = CMETER,
          birth_year = SJ,
-         study_id = 'data4') %>%  
+         study_id = 'Heights of SE and SW german soldiers, 18th century') %>%  
   select(height.in, height.cm, birth_year, study_id)
 ```
 
-```{r}
+```{r include = FALSE}
 five <- csv_Data %>%  
   mutate(birth_year = 1950,
          height.in = height,
-         height.cm = height.in*2.54,
-         study_id = 'data5') %>%  
+         height.cm = height.in * 2.54,
+         study_id = 'BLS Wage and Height Data in 1950') %>%  
   select(birth_year, height.cm, height.in, study_id)
 ```
 
-```{r}
+```{r include = FALSE}
 six <- sav_Data %>%  
-  mutate(birth_year = DOBY + 1900, height.in = RT216F*12 + RT216I, height.cm = height.in * 2.54, study_id = 'data6') %>%  
+  mutate(birth_year = DOBY + 1900, height.in = RT216F*12 + RT216I, height.cm = height.in * 2.54, study_id = 'National Survey (Wisconsin), 19th century') %>%  
   select(birth_year, height.in, height.cm, study_id)
 ```
 
-```{r}
-new <- six %>%
-  full_join(five, by = "birth_year")
-head(new)
+```{r include = FALSE}
+charty <- bind_rows(two, three, four, five, six)
+head(charty)
+write.csv(charty,"height_studies.csv", row.names = TRUE)
 ```
+
+```{r Height}
+germany <- worlddata %>%
+  filter(`Continent, Region, Country` == 'Germany')
+
+ggplot(worlddata, aes(x = year_decade, y = height.in)) +
+  geom_boxplot() +
+  geom_point(data = germany, color = 'red') +
+  labs(x = 'Decade', y = 'Height (in)', title = 'Countries Heights across decades', subtitle = 'Heights compared to Germany (red)') +
+  theme_bw()
+```
+
+
+```{r Heights across studies}
+tail(charty)
+
+ggplot(charty, aes(x = birth_year, y = height.in)) +
+  geom_boxplot() +
+  facet_wrap(~study_id, scales = 'free') +
+  labs(x = 'Decade', y = 'Height (in)', title = 'Countries Male Heights across decades', subtitle = 'Heights compared across different studies') +
+  theme_bw()
+```
+The heights plot shows that Male Heights for Germans are increasing. It also shows that the median height for all the countries is slowly increasing. The height plot of the studies 
+makes it hard to tell if the world height is increasing.
 
