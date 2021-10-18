@@ -1,7 +1,7 @@
 ---
 title: "Clean Your Data"
 author: "Logan Morrill"
-date: "10/11/2021"
+date: "10/18/2021"
 output: 
   html_document:
     theme: united
@@ -16,45 +16,93 @@ library(haven)
 library(readxl)
 library(downloader)
 library(foreign)
-library(textreadr)
 ```
 
 ```{r include = FALSE}
 #Load Data
 
-#xlsx Data
+#Xlsx Data
 xlsx_data <- tempfile()
 download("https://github.com/WJC-Data-Science/DTS350/blob/master/Height.xlsx?raw=true", xlsx_data, mode = "wb")
-height_xlsx <- read_xlsx(xlsx_data)
-
+xlsx_Data <- read_xlsx(xlsx_data, skip = 2)
 #Dta Data
-dta1_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/blob/master/germanconscr.dta?raw=true", dta1_data , mode = "wb")
-german_conscr_dta <- read_dta(dta1_data)
+dta_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/germanconscr.dta?raw=true", dta_data, mode = "wb")
+dta_Data <- read_dta(dta_data)
 
-dta2_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/blob/master/germanprison.dta?raw=true", dta2_data , mode = "wb")
-german_prison_dta <- read_dta(dta2_data)
+dta_data2 <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/blob/master/germanprison.dta?raw=true", dta_data2, mode = "wb")
+dta_Data2 <- read_dta(dta_data2)
 
-#DBF Data
+#Dbf Data
 dbf_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/blob/master/Heights_south-east/B6090.DBF?raw=true", dbf_data , mode = "wb")
-heights_south_east_dbf <- read.dbf(dbf_data, as.is = FALSE)
+download("https://github.com/WJC-Data-Science/DTS350/raw/master/Heights_south-east/B6090.DBF?raw=true", dbf_data, mode = "wb")
+dbf_Data <- read.dbf(dbf_data, as.is = FALSE)
 
-
-#RTF Data
-rtf_data <- tempfile()
-download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/Heights_south-east/b6090.rtf", rtf_data , mode = "wb")
-heights_south_east_rtf <- read_rtf(rtf_data)
-head(heights_south_east_rtf)
-
-#Csv Data
+#CSv Data
 csv_data <- tempfile()
-download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv", csv_data , mode = "wb")
-wage_height_csv <- read_csv(csv_data)
+download("https://raw.githubusercontent.com/hadley/r4ds/master/data/heights.csv?raw=true", csv_data, mode = "wb")
+csv_Data <- read_csv(csv_data)
+
+#Sav Data
+sav_data <- tempfile()
+download("http://www.ssc.wisc.edu/nsfh/wave3/NSFH3%20Apr%202005%20release/main05022005.sav", sav_data, mode = "wb")
+sav_Data <- read_sav(sav_data)
 
 ```
+
 ```{r}
-head(height_xlsx)
+worlddata <- xlsx_Data %>%  
+  pivot_longer(3:203, names_to = "years", values_to = "heights.cm", values_drop_na = TRUE) %>%   mutate(year_decade = years, 
+         height.in = heights.cm/2.54) %>%  
+  separate(years, into = c("century", "decade"), sep = -2) %>%  
+  separate(decade, into = c("decade", "year"), sep = -1)
+```
+
+```{r}
+dta_Data %>%  mutate(birth_year = bdec, 
+         height.cm = height, 
+         height.in = height.cm/2.54,
+         study_id = 'data2') %>%  
+  select(birth_year, height.cm, height.in, study_id)
+```
+
+```{r}
+dta_Data2 %>%
+  mutate(birth_year = bdec,
+         height.cm = height,
+         height.in = height.cm/ 2.54,
+         study_id = 'data3') %>%
+  select(birth_year, height.in, height.cm, study_id)
+```
+
+```{r}
+dbf_Data %>%  
+  mutate(height.in = CMETER/2.54,
+         height.cm = CMETER,
+         birth_year = SJ,
+         study_id = 'data4') %>%  
+  select(height.in, height.cm, birth_year, study_id)
+```
+
+```{r}
+five <- csv_Data %>%  
+  mutate(birth_year = 1950,
+         height.in = height,
+         height.cm = height.in*2.54,
+         study_id = 'data5') %>%  
+  select(birth_year, height.cm, height.in, study_id)
+```
+
+```{r}
+six <- sav_Data %>%  
+  mutate(birth_year = DOBY + 1900, height.in = RT216F*12 + RT216I, height.cm = height.in * 2.54, study_id = 'data6') %>%  
+  select(birth_year, height.in, height.cm, study_id)
+```
+
+```{r}
+new <- six %>%
+  full_join(five, by = "birth_year")
+head(new)
 ```
 
