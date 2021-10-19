@@ -62,7 +62,7 @@ write.csv(worlddata,"worlddata.csv", row.names = TRUE)
 ```
 
 ```{r include = FALSE}
-two <- dta_Data %>%  mutate(birth_year = bdec, 
+german_male <- dta_Data %>%  mutate(birth_year = bdec, 
          height.cm = height, 
          height.in = height.cm / 2.54,
          study_id = 'German male conscripts in Bavaria, 19th centery') %>%  
@@ -70,7 +70,7 @@ two <- dta_Data %>%  mutate(birth_year = bdec,
 ```
 
 ```{r include = FALSE}
-three <- dta_Data2 %>%
+bavarian_male <- dta_Data2 %>%
   mutate(birth_year = bdec,
          height.cm = height,
          height.in = height.cm / 2.54,
@@ -79,7 +79,7 @@ three <- dta_Data2 %>%
 ```
 
 ```{r include = FALSE}
-four <- dbf_Data %>%  
+SE_SW_german_soldiers <- dbf_Data %>%  
   mutate(height.in = CMETER / 2.54,
          height.cm = CMETER,
          birth_year = SJ,
@@ -88,7 +88,7 @@ four <- dbf_Data %>%
 ```
 
 ```{r include = FALSE}
-five <- csv_Data %>%  
+bls_wage_height <- csv_Data %>%  
   mutate(birth_year = 1950,
          height.in = height,
          height.cm = height.in * 2.54,
@@ -97,13 +97,13 @@ five <- csv_Data %>%
 ```
 
 ```{r include = FALSE}
-six <- sav_Data %>%  
+wisconsin <- sav_Data %>%  
   mutate(birth_year = DOBY + 1900, height.in = RT216F*12 + RT216I, height.cm = height.in * 2.54, study_id = 'National Survey (Wisconsin), 19th century') %>%  
   select(birth_year, height.in, height.cm, study_id)
 ```
 
 ```{r include = FALSE}
-charty <- bind_rows(two, three, four, five, six)
+charty <- bind_rows(german_male, bavarian_male, SE_SW_german_soldiers, bls_wage_height, wisconsin)
 head(charty)
 write.csv(charty,"height_studies.csv", row.names = TRUE)
 ```
@@ -124,7 +124,7 @@ ggplot(worlddata, aes(x = year_decade, y = height.in)) +
 tail(charty)
 
 ggplot(charty, aes(x = birth_year, y = height.in)) +
-  geom_boxplot() +
+  geom_col() +
   facet_wrap(~study_id, scales = 'free') +
   labs(x = 'Decade', y = 'Height (in)', title = 'Countries Male Heights across decades', subtitle = 'Heights compared across different studies') +
   theme_bw()

@@ -61,22 +61,14 @@ tail(charty)
 
 ```r
 ggplot(charty, aes(x = birth_year, y = height.in)) +
-  geom_boxplot() +
+  geom_col() +
   facet_wrap(~study_id, scales = 'free') +
   labs(x = 'Decade', y = 'Height (in)', title = 'Countries Male Heights across decades', subtitle = 'Heights compared across different studies') +
   theme_bw()
 ```
 
 ```
-## Warning: Continuous x aesthetic -- did you forget aes(group=...)?
-```
-
-```
-## Warning: Removed 12 rows containing missing values (stat_boxplot).
-```
-
-```
-## Warning: Removed 9 rows containing non-finite values (stat_boxplot).
+## Warning: Removed 21 rows containing missing values (position_stack).
 ```
 
 ![](cleanYourData_files/figure-html/Heights across studies-1.png)<!-- -->
