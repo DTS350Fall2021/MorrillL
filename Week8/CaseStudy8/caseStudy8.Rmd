@@ -1,0 +1,31 @@
+---
+title: "Counting Names in Scripture"
+author: "Logan Morrill"
+date: "10/20/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(downloader)
+```
+
+```{r include = FALSE}
+#Load Data
+csv_data <- tempfile()
+#Bible Data
+download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/bible.csv", 
+csv_data, mode = "wb")
+bible_Data <- read_csv(csv_data)
+#Name Data
+download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/Names.csv", 
+csv_data, mode = "wb")
+name_Data <- read_csv(csv_data)
+
+```
+
