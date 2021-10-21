@@ -1,5 +1,5 @@
 ---
-title: "Counting Names in Scripture"
+title: "Counting Words and Occurrances"
 author: "Logan Morrill"
 date: "10/20/2021"
 output: 
@@ -22,10 +22,5 @@ csv_data <- tempfile()
 download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/bible.csv", 
 csv_data, mode = "wb")
 bible_Data <- read_csv(csv_data)
-#Name Data
-download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/Names.csv", 
-csv_data, mode = "wb")
-name_Data <- read_csv(csv_data)
-
 ```
 
