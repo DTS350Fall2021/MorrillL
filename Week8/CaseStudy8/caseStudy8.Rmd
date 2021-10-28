@@ -13,6 +13,7 @@ output:
 #Packages
 library(tidyverse)
 library(downloader)
+library(stringi)
 ```
 
 ```{r include = FALSE}
@@ -26,6 +27,74 @@ bible_Data <- read_csv(csv_data)
 download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/Names.csv", 
 csv_data, mode = "wb")
 name_Data <- read_csv(csv_data)
-
 ```
+
+```{r include = FALSE}
+#Old testament Verses
+old_testament_scripts <- bible_Data %>%
+  filter(volume_long_title == 'The Old Testament') %>%
+  select(scripture_text) %>%
+  str_c()
+#New testament Verses
+new_testament_scripts <- bible_Data %>%
+  filter(volume_long_title == 'The New Testament') %>%
+  select(scripture_text) %>%
+  str_c()
+savior_names <- name_Data %>%
+  select(name)
+```
+
+```{r Each Instance of Savior Name}
+#Function to find number of savior references
+savior_references <- function(df) {
+  count <- vector("integer", ncol(savior_names))
+  for (name in savior_names) {
+      count <- count + str_length(str_extract_all(df,name))
+  }
+  sum(count)
+}
+#Old Testament Savior References
+savior_references(old_testament_scripts)
+#33,187
+#New Testament Savior References
+savior_references(new_testament_scripts)
+#44,280
+```
+
+```{r Words between Function}
+#Function to find words between instances
+words_between <- function(df, test) {
+  for (names in savior_names$name) {
+    name_replace <- str_replace_all(df, names, '1234')
+  }
+  word_split <- str_split(name_replace, '1234')
+  word_split_n <- str_remove_all(word_split, '\n')
+  if (test == 'mean') {
+    stri_stats_latex(unlist(word_split_n))[[4]]/ length(unlist(word_split))
+  } else {
+    stri_stats_latex(unlist(word_split_n))[[4]]
+  }
+}
+```
+
+```{r Words between instances}
+#Old testament words between instances
+words_between(old_testament_scripts, 'between')
+#611,503
+
+#New testament words between instances
+words_between(new_testament_scripts, 'between')
+#180,662
+
+#Average Old testament words between instances
+words_between(old_testament_scripts, 'mean')
+#3,135.913
+
+#Average New testament words between instances
+words_between(new_testament_scripts, 'mean')
+#12,044.13
+```
+  It looks like the New Testament has more references to the Savior name the Old Testament, 33,187 vs. 44,280. It also looks like the Old Testament has more words between the Savior names than the New Testament, 661,503 words with the average words between names being 3135.913. The New Testament has less words, 180,662 however it has a higher average between names of 12044.13.
+  All three of these conclusion indicate the New Testament could be longer than the Old Testament. 
+
 
