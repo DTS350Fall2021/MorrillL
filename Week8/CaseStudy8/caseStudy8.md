@@ -22,11 +22,12 @@ savior_references <- function(df) {
   count <- vector("integer", ncol(savior_names))
   for (name in savior_names) {
       count <- count + str_length(str_extract_all(df,name))
+      names(count)
   }
-  sum(count)
+  count
 }
 #Old Testament Savior References
-savior_references(old_testament_scripts)
+sum(savior_references(old_testament_scripts))
 ```
 
 ```
@@ -40,7 +41,7 @@ savior_references(old_testament_scripts)
 ```r
 #33,187
 #New Testament Savior References
-savior_references(new_testament_scripts)
+sum(savior_references(new_testament_scripts))
 ```
 
 ```
@@ -138,6 +139,45 @@ words_between(new_testament_scripts, 'mean')
 ```r
 #12,044.13
 ```
+
+
+```r
+as.data.frame(savior_references(new_testament_scripts)) %>%
+  ggplot(aes(x = savior_references(new_testament_scripts))) +
+    geom_histogram(color = 'black',fill = 'grey', binwidth = 100) +
+    labs(x = 'Length Between Names', y = 'Frequency', title = 'Distribution of New Testment Word Length Between Names') +
+    theme_bw()
+```
+
+```
+## Warning in stri_length(string): argument is not an atomic vector; coercing
+
+## Warning in stri_length(string): argument is not an atomic vector; coercing
+
+## Warning in stri_length(string): argument is not an atomic vector; coercing
+```
+
+![](caseStudy8_files/figure-html/Distribution of New Testamanet-1.png)<!-- -->
+
+
+```r
+as.data.frame(savior_references(old_testament_scripts)) %>%
+  ggplot(aes(x = savior_references(old_testament_scripts))) +
+    geom_histogram(color = 'black',fill = 'grey', binwidth = 100) +
+    labs(x = 'Length Between Names', y = 'Frequency', title = 'Distribution of Old Testment Word Length Between Names') +
+    theme_bw()
+```
+
+```
+## Warning in stri_length(string): argument is not an atomic vector; coercing
+
+## Warning in stri_length(string): argument is not an atomic vector; coercing
+
+## Warning in stri_length(string): argument is not an atomic vector; coercing
+```
+
+![](caseStudy8_files/figure-html/Distribution of Old Testamanet-1.png)<!-- -->
+  
   It looks like the New Testament has more references to the Savior name the Old Testament, 33,187 vs. 44,280. It also looks like the Old Testament has more words between the Savior names than the New Testament, 661,503 words with the average words between names being 3135.913. The New Testament has less words, 180,662 however it has a higher average between names of 12044.13.
   All three of these conclusion indicate the New Testament could be longer than the Old Testament. 
 
