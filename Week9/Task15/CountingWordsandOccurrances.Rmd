@@ -1,0 +1,75 @@
+---
+title: "Counting Words and Occurrances"
+author: "Logan Morrill"
+date: "10/20/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(downloader)
+```
+
+```{r include = FALSE}
+#Load Data
+csv_data <- tempfile()
+#Bible Data
+download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/bible.csv", 
+csv_data, mode = "wb")
+bible_Data <- read_csv(csv_data)
+```
+
+```{r include = FALSE}
+#Old testament Verses
+old_testament_scripts <- bible_Data %>%
+  filter(volume_long_title == 'The Old Testament') %>%
+  select(scripture_text)
+#New testament Verses
+new_testament_scripts <- bible_Data %>%
+  filter(volume_long_title == 'The New Testament') %>%
+  select(scripture_text)
+```
+
+```{r Number 1}
+#Function to find verse length
+verse_length <- function(df) {
+  v_length <- vector("integer",0)
+  for (row in df) {
+    v_length <- append(v_length,str_length(row))
+  }
+  v_length
+}
+
+#Old Testament average length
+mean(verse_length(old_testament_scripts))
+#136.7845
+#New Testament average length
+mean(verse_length(new_testament_scripts))
+#118.3265
+```
+
+```{r Number 2}
+#Old Testaments count of lord
+str_length(str_extract_all(old_testament_scripts, "(?i)lord"))
+#58,300
+
+#New Testaments count of lord
+str_length(str_extract_all(new_testament_scripts, "(?i)lord"))
+#5,900
+```
+
+```{r Number 3}
+#Convert Verse Length vector to dataframe and Create Histogram
+as.data.frame(verse_length(new_testament_scripts)) %>%
+  ggplot(aes(x = verse_length(new_testament_scripts))) +
+    geom_histogram(color = 'black',fill = 'grey') +
+    labs(x = 'Verse Length', y = 'Frequency', title = 'Distribution of New Testment Verse Length') +
+    theme_bw()
+```
+  The average verse length of the Old Testament is 136.7845 and the average verse length if the Old Testament is 118.3265. The average verse length of the Old Testament is longer than the New Testament by almost 20 words. In the Old Testament the word 'lord' is mentioned 58,300 times compared to 5,900 times in the New Testament. Both these questions show that the Old Testament is longer and mentions the word 'lord' more than the New Testament.
+  The distribution of the verse length of the New Testament is slightly right skewed. A large number of the frequency of the verse lengths is around 100 words. The graph also helps enforce the average verse length of 118.3265.
