@@ -1,0 +1,43 @@
+---
+title: "It's about Time"
+author: "Logan Morrill"
+date: "11/1/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(downloader)
+```
+
+```{r include = FALSE}
+#Load Data
+csv_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/raw/master/sales.csv", 
+csv_data, mode = "wb")
+sales_data <- read_csv(csv_data)
+```
+
+```{r Convert to Mountain Time}
+#Convert to Mountain Time
+sales_data <- sales_data %>%
+  with_tz(tzone = 'Us/Mountain')
+```
+
+```{r Create aggregate times}
+#Create aggregate times (daily, weekly, monthly)
+sales_data <- sales_data %>%
+  mutate(daily = ceiling_date(Time, "day")) %>%
+  mutate(weekly = ceiling_date(Time, "week")) %>%
+  mutate(monthly = ceiling_date(Time, "month"))
+```
+
+```{r}
+
+```
+
