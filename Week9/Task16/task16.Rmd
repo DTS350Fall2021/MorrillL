@@ -1,0 +1,66 @@
+---
+title: "Does the weather hurt my bottom line?"
+author: "Logan Morrill"
+date: "10/28/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(downloader)
+library(lubridate)
+library(riem)
+```
+
+```{r include = FALSE}
+#Load Data
+csv_data <- tempfile()
+download("https://github.com/WJC-Data-Science/DTS350/raw/master/carwash.csv", 
+csv_data, mode = "wb")
+car_wash_data <- read_csv(csv_data)
+```
+
+```{r Add mountain time}
+#Change time to mountain time
+car_wash_data_mst <- car_wash_data %>%
+  with_tz(tzone = 'Us/Mountain')
+```
+
+```{r Create hour}
+#Create hourly grouping variable
+car_wash_hour <- car_wash_data_mst %>%
+  mutate(hour = ceiling_date(time, "hour"))
+```
+
+```{r Hour Sales}
+#Aggregate across hour sales
+hour_sales <- car_wash_hour %>%
+  group_by(hour) %>%
+  summarise(across(amount, sum))
+```
+
+```{r Find weather}
+weather <- riem_measures(station = "RXE",  date_start = '	
+2016-05-13',  date_end  =  '2016-07-18 ') %>%
+  with_tz(tzone = 'Us/Mountain') %>%
+  filter(tmpf != "") %>%
+  mutate(hour = ceiling_date(valid, "hour")) %>%
+  select(hour, tmpf)
+```
+
+```{r Sales by Weather}
+#Combine Databases and graph sales by weather
+merge(hour_sales,weather, by = "hour") %>%
+  arrange(hour) %>%
+  ggplot(aes(x = hour, y = tmpf)) +
+    geom_point() +
+    geom_line() +
+    labs(x = 'Date', y = 'Temperature (Fahrenheit)', title = 'Sales affect by Weather') +
+    theme_bw()
+```
+
