@@ -50,10 +50,10 @@ weather <- riem_measures(station = "RXE",  date_start = '
 #Combine Databases and graph sales by weather
 merge(hour_sales,weather, by = "hour") %>%
   arrange(hour) %>%
-  ggplot(aes(x = hour, y = tmpf)) +
+  ggplot(aes(x = amount, y = tmpf)) +
     geom_point() +
     geom_line() +
-    labs(x = 'Date', y = 'Temperature (Fahrenheit)', title = 'Sales affect by Weather') +
+    labs(x = 'Sales', y = 'Temperature (Fahrenheit)', title = 'Sales by Temperature') +
     theme_bw()
 ```
 
