@@ -9,22 +9,12 @@ output:
     code_folding: 'hide'
 ---
 
-```{r include = FALSE}
-#Packages
-library(tidyverse)
-library(downloader)
-library(lubridate)
-```
 
-```{r include = FALSE}
-#Load Data
-csv_data <- tempfile()
-download("https://github.com/WJC-Data-Science/DTS350/raw/master/sales.csv", 
-csv_data, mode = "wb")
-sales_data <- read_csv(csv_data)
-```
 
-```{r Create aggregate times}
+
+
+
+```r
 #Create aggregate times (hourly,daily, weekly, monthly)
 sales_data_times <- sales_data %>%
   with_tz(tzone = 'Us/Mountain') %>%
@@ -37,7 +27,12 @@ sales_data_times <- sales_data %>%
   summarise(across(Amount, sum))
 ```
 
-```{r Sales by Company}
+```
+## `summarise()` has grouped output by 'Name'. You can override using the `.groups` argument.
+```
+
+
+```r
 #Create graph of sales per company per hour
 ggplot(sales_data_times, aes(x = Hour, y = Amount, color = Name)) +
   geom_point() +
@@ -48,4 +43,6 @@ ggplot(sales_data_times, aes(x = Hour, y = Amount, color = Name)) +
   theme_bw() +
   theme(legend.position = 'none')
 ```
+
+![](caseStudy9_files/figure-html/Sales by Company-1.png)<!-- -->
 
