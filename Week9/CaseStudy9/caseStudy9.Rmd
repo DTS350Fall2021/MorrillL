@@ -50,6 +50,7 @@ sales_data_times %>%
     theme(legend.position = 'none')
 
 ```
+The recommendation for business hours should be from 9 a.m. to 9 p.m. This is because sales don't start picking up until slightly after 8, peak at 12 a.m, and decline until a slight spike at 8 p.m, then fall shortly after.
 
 ```{r Sales by Company per Day}
 #Create graph of sales per company per day of the week
@@ -66,6 +67,7 @@ sales_data_times %>%
     theme_bw() +
     theme(legend.position = 'none')
 ```
+It seems throughout the week sales pick up, Sunday has the least amount of sales and Saturday has the most sales.
 
 ```{r Sales by Company per Week}
 #Create graph of sales per company per Week of the Month
@@ -83,6 +85,7 @@ sales_data_times %>%
     theme(legend.position = 'none')
 ```
 
+The week with the best sales was 28. It is not surprising because Week 28 is from July 11, 2016 to July 17, 2016.
 ```{r Sales by Company per Month}
 #Create graph of sales per company per Month of the Year
 sales_data_times %>%
@@ -98,7 +101,7 @@ sales_data_times %>%
     theme_bw() +
     theme(legend.position = 'none')
 ```
-
+Of the 3 month time period, July seemed to have the best overall sales. 
 ```{r Total Sales}
 #Total Sales per Company
 total_sales <- sales_data_times %>%
@@ -114,5 +117,4 @@ total_sales %>%
     theme_bw() +
     theme(legend.position = 'none')
 ```
-  The recommendation for business hours should be from 9 a.m. to 9 p.m. This is because sales don't start picking up until slightly after 8, peak at 12 a.m, and decline until a slight spike at 8 p.m, then fall shortly after. It also seems throughout the week sales pick up, Sunday has the least amount of sales and Saturday has the most sales. Of the 3 month time period, July seemed to have the best overall sales. The week with the best sales was 28. It is not surprising because Week 28 is from July 11, 2016 to July 17, 2016.
   Overall every company is doing well except Missing, which has next to 0 sales.Frozone is the next worse will slightly over 5000 sales units. However, the company will the most sales is HotDiggity. HotDiggity would be the best business to give a loan. Missing and Frozone are the worse businesses to give loans.
