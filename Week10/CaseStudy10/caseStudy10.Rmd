@@ -1,0 +1,52 @@
+---
+title: "Interacting with time"
+author: "Logan Morrill"
+date: "11/8/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(dygraphs)
+library(lubridate)
+library(tidyquant)
+library(timetk)
+```
+
+```{r Stock Comparison}
+#Stock 5 Years Comparison Function
+stonk_calculator <- function(tickers) {
+  stonks <- tq_get(tickers, get = "stock.prices", from = today() - years(5), to = today())
+  stonks_chart <- stonks %>%
+    select(symbol, date, adjusted) %>%
+    pivot_wider(names_from = symbol, values_from = adjusted) %>%
+    tk_xts(date_var = date)
+  dygraph(stonks_chart)
+}
+
+t <- c('BRK-A','TSLA')
+
+stonk_calculator(t)
+```
+Berkshire Hathaway has drastically out performed the market. I choose BRK because I know it has performed well under Warren Buffett. Tesla is another company that has performed well but is nothing compared to BRK.
+```{r Volume Chart}
+#Volume
+volume_chart <- function(tickers) {
+  tq_get(tickers, get = "stock.prices", from = today() - years(5), to = today()) %>%
+  ggplot(aes(x = date, y = volume, color = symbol)) +
+    geom_line() +
+    facet_wrap(~symbol) +
+    labs(title = "Volume", y = "", x = "") +
+    theme_tq() +
+    theme(legend.position = 'none')
+}
+
+volume_chart(t)
+```
+  BRK has next to 0 stock volume because there is little outstanding shares and it cost a lot to buy one share, and is not very popular. On the other hand, TSLA is extremely popular, has lots of outstanding shares, thus has lots of volume. 
+  An investor would want to buy when they noticed the volume starting to spike because this shows buyers are entering the market and are going to drive up the price. They would sell when the volume spikes and starts to decrease, making a quick profit.
