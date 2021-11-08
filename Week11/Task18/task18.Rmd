@@ -1,0 +1,51 @@
+---
+title: "My investment is better than yours"
+author: "Logan Morrill"
+date: "11/8/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(dygraphs)
+library(lubridate)
+library(tidyquant)
+library(timetk)
+```
+
+```{r Time frame}
+#Time Frame
+start <- today() - years(1)
+end <- today()
+```
+
+```{r}
+stonks <- tq_get(c('KR','K','T','KO','MSFT','GM'), get = "stock.prices", from = start, to = end)
+```
+
+```{r Stock Comparison}
+#Graph of Stock Comparison
+stonks_chart <- stonks %>%
+  select(symbol, date, adjusted) %>%
+  pivot_wider(names_from = symbol, values_from = adjusted) %>%
+  tk_xts(date_var = date)
+dygraph(stonks_chart)
+```
+
+```{r}
+stonks %>%
+  filter(symbol == "MSFT") %>%
+  ggplot(aes(x = date, y = close)) +
+  geom_candlestick(aes(open = open, high = high, low = low, close = close)) +
+  labs(title = 'Candlestick Chart', y = 'Closeing Price', x = 'Date') +
+  theme_tq()
+```
+
+
+The best performing stock pick was Microsoft. It has been exponentially increasing for the past year. It has seen small corrections but has quickly recovered from the corrections.
+
