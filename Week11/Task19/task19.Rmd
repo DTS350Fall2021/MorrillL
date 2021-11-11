@@ -1,0 +1,63 @@
+---
+title: "Project"
+author: "Logan Morrill"
+date: "11/10/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(dygraphs)
+library(lubridate)
+library(tidyquant)
+library(timetk)
+```
+
+```{r Stock Comparison}
+#Stock 1 Year Comparison Function
+stonk_calculator <- function(tickers) {
+  stonks <- tq_get(tickers, get = "stock.prices", from = today() - years(1), to = today())
+  stonks_chart <- stonks %>%
+    select(symbol, date, adjusted) %>%
+    pivot_wider(names_from = symbol, values_from = adjusted) %>%
+    tk_xts(date_var = date)
+  dygraph(stonks_chart)
+}
+
+```
+### Try to Find High Correlated Stock Pair for Pair Trading
+```{r GM and F Pair}
+#Compare Stock Returns for General Motors (GM) and Ford (F) to find a pair
+GM_F <- c('GM','F')
+
+stonk_calculator(GM_F)
+```
+
+```{r GLD and SLV Pair}
+#Compare ETF Returns for Gold (GLD) and Silver (SLV) to find a pair
+GLD_SLV <- c('GLD','SLV')
+
+stonk_calculator(GLD_SLV)
+```
+
+```{r SPY and QQQ Pair}
+#Compare ETF Returns for S & P (SPY) and Nasdaq (QQQ) to find a pair
+SPY_QQQ <- c('SPY','QQQ')
+
+stonk_calculator(SPY_QQQ)
+```
+
+  Looking at the charts directly it is hard to tell if any three pair are highly correlated. There might be some correlation between SPY and QQQ but the other 2 pairs seem to not be correlated. 
+  I will need to use standard deviation to see if the pairs revert back to their means. This will tell me if the pair is truly correlated and I can trade the pair.
+
+ Timeline: 
+I would like to have my first draft done by November 19.
+I want my second draft done by November 22.
+I want the final draft done by November 29. 
+I could then present to 2-3 friends on the 2nd. 
+I would like to present on Tuesday, December 7th. 
