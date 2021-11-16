@@ -1,0 +1,63 @@
+---
+title: "Building the Past"
+author: "Logan Morrill"
+date: "11/15/2021"
+output: 
+  html_document:
+    theme: united
+    keep_md: True
+    code_folding: 'hide'
+---
+
+```{r include = FALSE}
+#Packages
+library(tidyverse)
+library(downloader)
+library(USAboundaries)
+library(plotly)
+```
+
+```{r include = FALSE}
+#Load Data
+csv_data <- tempfile()
+download("https://raw.githubusercontent.com/WJC-Data-Science/DTS350/master/permits.csv", 
+csv_data, mode = "wb")
+housing_data <- read_csv(csv_data)
+```
+
+```{r Merge Dataframes}
+codes <- state_codes %>%
+  mutate(state = as.integer(state_code))
+
+permits <- merge(housing_data,codes,by = "state") %>%
+  group_by(state_name,year) %>%
+  summarise(across(value, sum))
+
+```
+
+```{r Permits per State}
+#Number of Permits per State (1980-2010)
+fig <- ggplot(data = permits, aes(x = year, y = value/1000, color = state_name)) +
+    geom_point(aes(text = paste("State:",state_name))) +
+    geom_line() +
+    geom_vline(xintercept = 2008, linetype = 'dotted') +
+    labs(x = '', y = 'Number of Permits (per 1000)', title = 'Permits per State') +
+    theme_bw() +
+    theme(legend.position = 'none')
+
+ggplotly(fig)
+```
+It seems that California has more permits, but this is expected because of the population. Before the 2008 finance collapse permits seemed to already be going down.However, permits were starting to go up but sharply decreased right before the financial crisis.
+```{r Permits in Missouri}
+#Number of Permits in Missouri (1980-2010)
+permits %>%
+  filter(state_name == 'Missouri') %>%
+  ggplot(aes(x = year, y = value/1000)) +
+    geom_point() +
+    geom_line() +
+    geom_vline(xintercept = 2008, linetype = 'dotted') +
+    labs(x = '', y = 'Number of Permits(per 1000)', title = 'Permits in Missouri') +
+    theme_bw() +
+    theme(legend.position = 'none')
+````
+Missouri's permits have been all over the place. Over time they were increasing before sharply decreasing before 2008. This is similar to the standard across the other states. There was a sharp decreasing around 1985. Black Monday occurred in 1987, so this could be the result of the sharp decrease.
