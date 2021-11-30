@@ -74,7 +74,7 @@ stonk_calculator <- function(tickers,x) { #Get price data for 1 year
 ```
 
 # General Motors (GM) and Ford (F)
-```{r GM,F Pair, echo=FALSE} 
+```{r GM_F_Pair, echo=FALSE} 
 #Compare Stock Returns for General Motors (GM) and Ford (F) to find a pair
 GM_F <- c('GM','F')
 stonk_calculator(GM_F,'cor')
@@ -83,7 +83,7 @@ stonk_calculator(GM_F,'chart')
 ```
 ## {data-background=#262626}
 <h2 style="color: #fff">Mean reverse plot</h2>
-```{r GM,F Fifference, echo=FALSE}
+```{r GM_F_Difference, echo=FALSE}
 stonk_calculator(GM_F,'dif')
 ```
 ## {data-background=#262626}
@@ -92,7 +92,7 @@ stonk_calculator(GM_F,'dif')
 <p> GM and F pair is risky, but could be traded </p>
 
 # Gold (GLD) and Silver (SLV)
-```{r GLD,SLV Pair, echo=FALSE} 
+```{r GLD_SLV_Pair, echo=FALSE} 
 #Compare ETF Returns for Gold (GLD) and Silver (SLV) to find a pair
 GLD_SLV <- c('GLD','SLV')
 stonk_calculator(GLD_SLV,'cor')
@@ -106,7 +106,7 @@ stonk_calculator(GLD_SLV,'chart')
 <p> GLD and SLV pair is extremely risky, not suitable for trading </p>
 
 # S & P (SPY) and Nasdaq (QQQ)
-```{r SPY,QQQ Pair, echo=FALSE} 
+```{r SPY_QQQ_Pair, echo=FALSE} 
 #Compare ETF Returns for S & P (SPY) and Nasdaq (QQQ) to find a pair
 SPY_QQQ <- c('SPY','QQQ')
 stonk_calculator(SPY_QQQ,'cor')
@@ -115,7 +115,7 @@ stonk_calculator(SPY_QQQ,'chart')
 ```
 ## {data-background=#262626}
 <h2 style="color: #fff">Mean reverse plot</h2>
-```{r SPY,QQQ Difference, echo=FALSE}
+```{r SPY_QQQ_Difference, echo=FALSE}
 stonk_calculator(SPY_QQQ,'dif')
 ```
 ## {data-background=#262626}
